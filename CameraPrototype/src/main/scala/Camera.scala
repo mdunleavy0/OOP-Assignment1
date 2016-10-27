@@ -1,33 +1,53 @@
 import processing.core._
 import processing.event._
 
+import math._
+import collection.mutable
 
 /**
   * Created by Michael Dunleavy on 26/10/2016.
   */
 class Camera(var sketch: PApplet, var x: Float = 0f, var y: Float = 0f, var scale: Float = 1f) {
-  val panSensitivity = 100f
-  val zoomSensitivity = 0.1f
+  var panSensitivity = 0.01f
+  var zoomSensitivity = 0.5f
+
+  private def panLength: Float =
+    panSensitivity * sketch.width
+
+  private val keyStates: mutable.Map[String, Boolean] = mutable.Map(
+    "w" -> false,
+    "a" -> false,
+    "s" -> false,
+    "d" -> false
+  )
 
   def transform(): Unit = {
+    pan()
     sketch.translate(x, y)
     sketch.scale(scale)
   }
 
-  def keyPressed(): Unit = sketch.key.toLower match {
-    case 'w' => y -= panSensitivity
-    case 'a' => x -= panSensitivity
-    case 's' => y += panSensitivity
-    case 'd' => x += panSensitivity
+  def keySet(key: Char, toggle: Boolean): Unit = key.toLower match {
+    case 'w' => keyStates("w") = toggle
+    case 'a' => keyStates("a") = toggle
+    case 's' => keyStates("s") = toggle
+    case 'd' => keyStates("d") = toggle
     case _ => Unit
   }
 
   def mouseWheel(event: MouseEvent): Unit = {
-    scale += event.getCount * zoomSensitivity
+    scale += scale * event.getCount * zoomSensitivity
   }
 
   def mouseDragged(): Unit = {
     x += sketch.mouseX - sketch.pmouseX
     y += sketch.mouseY - sketch.pmouseY
+  }
+
+  def pan(): Unit = {
+    if (keyStates("w")) y -= panLength
+    if (keyStates("a")) x -= panLength
+    if (keyStates("s")) y += panLength
+    if (keyStates("d")) x += panLength
   }
 }

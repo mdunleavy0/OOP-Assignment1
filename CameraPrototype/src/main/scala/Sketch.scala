@@ -37,7 +37,10 @@ class Sketch extends PApplet {
   val zoomSensitivity = 0.1f
 
   override def keyPressed(): Unit =
-    cam.keyPressed()
+    cam.keySet(key, true)
+
+  override def keyReleased(): Unit =
+    cam.keySet(key, false)
 
   override def mouseWheel(event: MouseEvent): Unit =
     cam.mouseWheel(event)
