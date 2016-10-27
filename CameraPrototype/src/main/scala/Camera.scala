@@ -1,18 +1,24 @@
 import processing.core._
 import processing.event._
 
-import math._
 import collection.mutable
+
 
 /**
   * Created by Michael Dunleavy on 26/10/2016.
   */
-class Camera(var sketch: PApplet, var x: Float = 0f, var y: Float = 0f, var scale: Float = 1f) {
-  var panSensitivity = 0.01f
+class Camera(var sketch: PApplet) {
+  var x: Float = 0f
+  var y: Float = 0f
+  var scale: Float = 1f
+
+  var targetFps = 60
+
+  var panTime = 0.5f
   var zoomSensitivity = 0.5f
 
   private def panLength: Float =
-    panSensitivity * sketch.width
+    sketch.width / (panTime * targetFps)
 
   private val keyStates: mutable.Map[String, Boolean] = mutable.Map(
     "w" -> false,
@@ -23,7 +29,7 @@ class Camera(var sketch: PApplet, var x: Float = 0f, var y: Float = 0f, var scal
 
   def transform(): Unit = {
     pan()
-    sketch.translate(x, y)
+    sketch.translate(sketch.width / 2 + x, sketch.height / 2 + y)
     sketch.scale(scale)
   }
 
@@ -35,9 +41,8 @@ class Camera(var sketch: PApplet, var x: Float = 0f, var y: Float = 0f, var scal
     case _ => Unit
   }
 
-  def mouseWheel(event: MouseEvent): Unit = {
+  def mouseWheel(event: MouseEvent): Unit =
     scale += scale * event.getCount * zoomSensitivity
-  }
 
   def mouseDragged(): Unit = {
     x += sketch.mouseX - sketch.pmouseX
