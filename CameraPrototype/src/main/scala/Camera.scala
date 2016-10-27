@@ -20,6 +20,9 @@ class Camera(var sketch: PApplet) {
   private def panLength: Float =
     sketch.width / (panTime * targetFps)
 
+  private def halfSketchWidth: Float = sketch.width / 2
+  private def halfSketchHeight: Float = sketch.height / 2
+
   private val keyStates: mutable.Map[String, Boolean] = mutable.Map(
     "w" -> false,
     "a" -> false,
@@ -29,9 +32,19 @@ class Camera(var sketch: PApplet) {
 
   def transform(): Unit = {
     pan()
-    sketch.translate(sketch.width / 2 + x, sketch.height / 2 + y)
+    sketch.translate(halfSketchWidth + x, halfSketchHeight + y)
     sketch.scale(scale)
   }
+
+  def project(modelX: Float, modelY: Float): (Float, Float) = (
+    (modelX * scale) + halfSketchWidth + x,
+    (modelY * scale) + halfSketchHeight + y
+  )
+
+  def unproject(screenX: Float, screenY: Float): (Float, Float) = (
+    (screenX - halfSketchWidth - x) / scale,
+    (screenY - halfSketchHeight - y) / scale
+  )
 
   def keySet(key: Char, toggle: Boolean): Unit = key.toLower match {
     case 'w' => keyStates("w") = toggle
@@ -49,7 +62,7 @@ class Camera(var sketch: PApplet) {
     y += sketch.mouseY - sketch.pmouseY
   }
 
-  def pan(): Unit = {
+  private def pan(): Unit = {
     if (keyStates("w")) y -= panLength
     if (keyStates("a")) x -= panLength
     if (keyStates("s")) y += panLength
