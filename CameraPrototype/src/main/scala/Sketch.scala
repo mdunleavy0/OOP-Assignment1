@@ -1,7 +1,7 @@
 import processing.core._
 import processing.core.PApplet._
 import processing.core.PConstants._
-import processing.event.MouseEvent
+import processing.event._
 
 
 /**
@@ -33,19 +33,14 @@ class Sketch extends PApplet {
   val winH = 1000
 
   var cam = new Camera(this)
-  val panSensitivity = 10f
+  val panSensitivity = 100f
   val zoomSensitivity = 0.1f
 
-  override def keyPressed(): Unit = key.toLower match {
-    case 'w' => cam.y -= panSensitivity
-    case 'a' => cam.x -= panSensitivity
-    case 's' => cam.y += panSensitivity
-    case 'd' => cam.x += panSensitivity
-  }
+  override def keyPressed(): Unit =
+    cam.keyPressed()
 
-  override def mouseWheel(event: MouseEvent): Unit = {
-    cam.scale += event.getCount * zoomSensitivity
-  }
+  override def mouseWheel(event: MouseEvent): Unit =
+    cam.mouseWheel(event)
 }
 
 
