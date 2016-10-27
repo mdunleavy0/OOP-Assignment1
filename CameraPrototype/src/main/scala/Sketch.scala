@@ -41,6 +41,9 @@ class Sketch extends PApplet {
 
   override def mouseWheel(event: MouseEvent): Unit =
     cam.mouseWheel(event)
+
+  override def mouseDragged(): Unit =
+    cam.mouseDragged()
 }
 
 

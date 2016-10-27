@@ -25,4 +25,9 @@ class Camera(var sketch: PApplet, var x: Float = 0f, var y: Float = 0f, var scal
   def mouseWheel(event: MouseEvent): Unit = {
     scale += event.getCount * zoomSensitivity
   }
+
+  def mouseDragged(): Unit = {
+    x += sketch.mouseX - sketch.pmouseX
+    y += sketch.mouseY - sketch.pmouseY
+  }
 }
