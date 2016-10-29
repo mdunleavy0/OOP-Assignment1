@@ -2,6 +2,7 @@ import processing.core._
 import processing.event._
 
 import collection.mutable
+import math._
 
 
 /**
@@ -22,6 +23,7 @@ class Camera(var sketch: PApplet) {
 
   private def halfSketchWidth: Float = sketch.width / 2
   private def halfSketchHeight: Float = sketch.height / 2
+
 
   private val keyStates: mutable.Map[String, Boolean] = mutable.Map(
     "w" -> false,

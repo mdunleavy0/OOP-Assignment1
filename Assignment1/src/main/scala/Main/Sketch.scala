@@ -1,3 +1,5 @@
+package Main
+
 import processing.core._
 import processing.core.PApplet._
 import processing.core.PConstants._
@@ -58,6 +60,6 @@ class Sketch extends PApplet {
 
 object Sketch {
   def main(args: Array[String]) = {
-    PApplet.main(Array[String]("Sketch"))
+    PApplet.main(Array[String]("Main.Sketch"))
   }
 }
