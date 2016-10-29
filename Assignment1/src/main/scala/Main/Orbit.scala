@@ -2,7 +2,7 @@ package Main
 
 import Util.Vec2
 
-import math._
+import math.Pi
 
 
 /**

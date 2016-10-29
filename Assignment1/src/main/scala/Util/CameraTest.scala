@@ -1,13 +1,13 @@
+package Util
+
 import processing.core._
-import processing.core.PApplet._
-import processing.core.PConstants._
 import processing.event._
 
 
 /**
   * Created by Michael Dunleavy on 26/10/2016.
   */
-class Sketch extends PApplet {
+class CameraTest extends PApplet {
   override def settings() = {
     size(winW, winH)
   }
@@ -50,8 +50,8 @@ class Sketch extends PApplet {
 }
 
 
-object Sketch {
+object CameraTest {
   def main(args: Array[String]) = {
-    PApplet.main(Array[String]("Sketch"))
+    PApplet.main(Array[String]("Util.CameraTest"))
   }
 }

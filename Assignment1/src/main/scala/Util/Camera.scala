@@ -1,8 +1,9 @@
+package Util
+
 import processing.core._
 import processing.event._
 
-import collection.mutable
-import math._
+import scala.collection.mutable
 
 
 /**
