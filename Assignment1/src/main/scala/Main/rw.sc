@@ -1,2 +1,1 @@
-class C(val x: Int) {}
-
+trait Tr(val x: Int)
