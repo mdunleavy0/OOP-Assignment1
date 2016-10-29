@@ -4,12 +4,13 @@ package Main
   * Created by Michael Dunleavy on 29/10/2016.
   */
 trait Satellite {
-  def radius: Float
+  val radius: Float
+  val diameter: Float = 2 * radius
   // TODO def color
 }
 
 case object NoSatellite extends Satellite {
-  def radius = 0f
+  val radius = 0f
 }
 
 case class Star(radius: Float) extends Satellite {

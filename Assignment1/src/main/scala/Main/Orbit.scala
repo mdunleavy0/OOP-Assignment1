@@ -9,6 +9,8 @@ import math._
   * Created by Michael Dunleavy on 29/10/2016.
   */
 class Orbit(val radius: Float, val period: Float, val phaseAngle: Float) {
+  val diameter: Float = 2 * radius
+
   def angle(time: Float): Float = time * Tau.toFloat / period + phaseAngle
 
   def displacement(time: Float): Vec2 = Vec2 fromAngle (angle(time), radius)

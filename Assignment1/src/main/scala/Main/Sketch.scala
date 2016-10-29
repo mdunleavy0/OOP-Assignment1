@@ -1,5 +1,7 @@
 package Main
 
+import Util.Vec2
+
 import processing.core._
 import processing.core.PApplet._
 import processing.core.PConstants._
@@ -21,7 +23,7 @@ class Sketch extends PApplet {
     val t: Float = frameCount.toFloat / targetFps
     if (frameCount % targetFps == 0) background(100, 0, 0)
     else background(0)
-    drawSystem(sys, t, width / 2, height / 2)
+    drawSystem(sys, t, Vec2(width / 2, height / 2))
   }
 
   // by contrast, frameRate gives the real fps
@@ -30,30 +32,45 @@ class Sketch extends PApplet {
   val winW = 1000
   val winH = 1000
 
-  val sys = Star(50, 0, Float.PositiveInfinity, 0, List(
-    Planet(25, 150, 2, 0, Nil),
-    Planet(25, 300, 2, 1, List(
-      Moon(5, 50, 2, 0),
-      Moon(10, 80, 2, 0)
-    ))
-  ))
+  val sys = SolarSystem(
+    Star(50),
+    Orbit(),
+    List(
+      PlanetarySystem(
+        Planet(25),
+        Orbit(150, 2),
+        Nil
+      ),
+      PlanetarySystem(
+        Planet(25),
+        Orbit(300, 2, PI),
+        List(
+          LunarSystem(
+            Moon(5),
+            Orbit(50, 2)
+          ),
+          LunarSystem(
+            Moon(10),
+            Orbit(80, 2)
+          )
+        )
+      )
+    )
+  )
 
-  def drawSystem(sys: System, t: Float, x: Float, y: Float): Unit = {
-    val diameter = 2 * sys.radius
-    val orbitDiameter = 2 * sys.orbitRadius
-
-    val (sysX, sysY) = sys.position(t, x, y)
+  def drawSystem(sys: System, t: Float, center: Vec2): Unit = {
+    val pos = sys.position(t, center)
 
     stroke(100)
     strokeWeight(3)
     noFill()
-    ellipse(x, y, orbitDiameter, orbitDiameter)
+    ellipse(center.x, center.y, sys.orbit.diameter, sys.orbit.diameter)
 
     fill(255)
     noStroke()
-    ellipse(sysX, sysY, diameter, diameter)
+    ellipse(pos.x, pos.y, sys.core.diameter, sys.core.diameter)
 
-    sys.satellites foreach (drawSystem(_, t, sysX, sysY))
+    sys.satellites foreach (drawSystem(_, t, pos))
   }
 }
 
