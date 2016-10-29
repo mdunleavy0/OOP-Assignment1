@@ -39,3 +39,4 @@ object Vec2 {
   def fromAngle(angle: Float, mag: Float = 1f): Vec2 =
     Vec2(mag * cos(angle).toFloat, mag * sin(angle).toFloat)
 }
+

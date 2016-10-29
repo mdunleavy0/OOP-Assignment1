@@ -1,2 +1,2 @@
-1.0 / 0.0
+class C(val x: Int) {}
 
