@@ -36,17 +36,20 @@ class CameraTest extends PApplet {
   val panSensitivity = 100f
   val zoomSensitivity = 0.1f
 
-  override def keyPressed(): Unit =
-    cam.keySet(key, true)
+  override def keyPressed(event: KeyEvent): Unit =
+    cam.keyPressed(event)
 
-  override def keyReleased(): Unit =
-    cam.keySet(key, false)
+  override def keyReleased(event: KeyEvent): Unit =
+    cam.keyReleased(event)
+
+  override def mousePressed(event: MouseEvent): Unit =
+    cam.mousePressed(event)
+
+  override def mouseReleased(event: MouseEvent): Unit =
+    cam.mouseReleased(event)
 
   override def mouseWheel(event: MouseEvent): Unit =
     cam.mouseWheel(event)
-
-  override def mouseDragged(): Unit =
-    cam.mouseDragged()
 }
 
 

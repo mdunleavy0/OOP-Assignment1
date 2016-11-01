@@ -1,6 +1,7 @@
 package Util
 
 import processing.core._
+import processing.core.PConstants._
 import processing.event._
 
 import scala.collection.mutable
@@ -10,8 +11,7 @@ import scala.collection.mutable
   * Created by Michael Dunleavy on 26/10/2016.
   */
 class Camera(var sketch: PApplet) {
-  var x: Float = 0f
-  var y: Float = 0f
+  var pos: Vec2 = Vec2(0f, 0f)
   var scale: Float = 1f
 
   var targetFps = 60
@@ -25,8 +25,8 @@ class Camera(var sketch: PApplet) {
   private def halfSketchWidth: Float = sketch.width / 2
   private def halfSketchHeight: Float = sketch.height / 2
 
-
-  private val keyStates: mutable.Map[String, Boolean] = mutable.Map(
+  private val digitalInputs: mutable.Map[String, Boolean] = mutable.Map(
+    "MOUSE_LEFT" -> false,
     "w" -> false,
     "a" -> false,
     "s" -> false,
@@ -34,41 +34,58 @@ class Camera(var sketch: PApplet) {
   )
 
   def transform(): Unit = {
-    pan()
-    sketch.translate(halfSketchWidth + x, halfSketchHeight + y)
+    updatePosition()
+    sketch.translate(halfSketchWidth + pos.x, halfSketchHeight + pos.y)
     sketch.scale(scale)
   }
 
-  def project(modelX: Float, modelY: Float): (Float, Float) = (
-    (modelX * scale) + halfSketchWidth + x,
-    (modelY * scale) + halfSketchHeight + y
+  def project(model: Vec2): Vec2 = Vec2(
+    model.x * scale + halfSketchWidth + pos.x,
+    model.y * scale + halfSketchHeight + pos.y
   )
 
-  def unproject(screenX: Float, screenY: Float): (Float, Float) = (
-    (screenX - halfSketchWidth - x) / scale,
-    (screenY - halfSketchHeight - y) / scale
+  def unproject(screen: Vec2): Vec2 = Vec2(
+    (screen.x - halfSketchWidth - pos.x) / scale,
+    (screen.y - halfSketchHeight - pos.y) / scale
   )
 
-  def keySet(key: Char, toggle: Boolean): Unit = key.toLower match {
-    case 'w' => keyStates("w") = toggle
-    case 'a' => keyStates("a") = toggle
-    case 's' => keyStates("s") = toggle
-    case 'd' => keyStates("d") = toggle
+  def updatePosition(): Unit = {
+    var x = pos.x
+    var y = pos.y
+
+    if (digitalInputs("w")) y -= panLength
+    if (digitalInputs("a")) x -= panLength
+    if (digitalInputs("s")) y += panLength
+    if (digitalInputs("d")) x += panLength
+
+    if (digitalInputs("MOUSE_LEFT")) {
+      x += sketch.mouseX - sketch.pmouseX
+      y += sketch.mouseY - sketch.pmouseY
+    }
+
+    pos = Vec2(x, y)
+  }
+
+  def toggleDigitalInput(input: String, state: Boolean): Unit =
+    if (digitalInputs contains input) digitalInputs(input) = state
+
+  def keyPressed(event: KeyEvent): Unit =
+    toggleDigitalInput(sketch.key.toLower.toString, true)
+
+  def keyReleased(event: KeyEvent): Unit =
+    toggleDigitalInput(sketch.key.toLower.toString, false)
+
+  def mousePressed(event: MouseEvent): Unit = sketch.mouseButton match {
+    case LEFT => toggleDigitalInput("MOUSE_LEFT", true)
+    case _ => Unit
+  }
+
+  def mouseReleased(event: MouseEvent): Unit = sketch.mouseButton match {
+    case LEFT => toggleDigitalInput("MOUSE_LEFT", false)
     case _ => Unit
   }
 
   def mouseWheel(event: MouseEvent): Unit =
     scale += scale * event.getCount * zoomSensitivity
 
-  def mouseDragged(): Unit = {
-    x += sketch.mouseX - sketch.pmouseX
-    y += sketch.mouseY - sketch.pmouseY
-  }
-
-  private def pan(): Unit = {
-    if (keyStates("w")) y -= panLength
-    if (keyStates("a")) x -= panLength
-    if (keyStates("s")) y += panLength
-    if (keyStates("d")) x += panLength
-  }
 }
