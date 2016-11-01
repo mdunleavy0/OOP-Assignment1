@@ -17,6 +17,7 @@ class Sketch extends PApplet {
 
   override def setup() = {
     frameRate(targetFps)
+    println(sys.radius)
   }
 
   override def draw() = {

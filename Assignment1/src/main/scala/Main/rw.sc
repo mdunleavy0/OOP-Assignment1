@@ -1,3 +1,6 @@
-trait Tr {val x = 4}
+val ls = (0 until 10).toList
 
-new Tr
+ls match {
+  case _ :+ x => println(x)
+  case _ => println("No match")
+}

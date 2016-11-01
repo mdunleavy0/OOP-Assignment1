@@ -12,6 +12,11 @@ trait System {
   val satellites: List[System]
 
   def position(time: Float, center: Vec2): Vec2 = center + orbit.displacement(time)
+
+  lazy val radius: Float = satellites match {
+    case _ :+ last => last.orbit.radius + last.radius
+    case _ => core.radius
+  }
 }
 
 
