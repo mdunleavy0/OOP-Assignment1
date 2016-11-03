@@ -19,11 +19,14 @@ class Camera(var sketch: PApplet) {
   var panTime = 0.5f
   var zoomSensitivity = 0.5f
 
-  private def panLength: Float =
-    sketch.width / (panTime * targetFps)
+  private def circumcircleRadius: Float = pos dist unproject(Vec2(0f, 0f))
+  /*private*/ def circumcircle: Circle = Circle(pos, circumcircleRadius)
 
   private def halfSketchWidth: Float = sketch.width / 2
   private def halfSketchHeight: Float = sketch.height / 2
+
+  private def panLength: Float =
+    (sketch.width / (panTime * targetFps)) / scale
 
   private val digitalInputs: mutable.Map[String, Boolean] = mutable.Map(
     "MOUSE_LEFT" -> false,
@@ -34,33 +37,38 @@ class Camera(var sketch: PApplet) {
   )
 
   def transform(): Unit = {
-    updatePosition()
-    sketch.translate(halfSketchWidth + pos.x, halfSketchHeight + pos.y)
+    sketch.pushMatrix()
+    sketch.translate(halfSketchWidth, halfSketchHeight)
     sketch.scale(scale)
+    sketch.translate(-pos.x, -pos.y)
   }
 
+  def untransform(): Unit = sketch.popMatrix()
+
   def project(model: Vec2): Vec2 = Vec2(
-    model.x * scale + halfSketchWidth + pos.x,
-    model.y * scale + halfSketchHeight + pos.y
+    (model.x - pos.x) * scale + halfSketchWidth,
+    (model.y - pos.y) * scale + halfSketchHeight
   )
 
   def unproject(screen: Vec2): Vec2 = Vec2(
-    (screen.x - halfSketchWidth - pos.x) / scale,
-    (screen.y - halfSketchHeight - pos.y) / scale
+    (screen.x - halfSketchWidth) / scale + pos.x,
+    (screen.y - halfSketchHeight) / scale + pos.y
   )
+
+  def likelyShows(area: Circle): Boolean = circumcircle intersects area
 
   def updatePosition(): Unit = {
     var x = pos.x
     var y = pos.y
 
-    if (digitalInputs("w")) y -= panLength
-    if (digitalInputs("a")) x -= panLength
-    if (digitalInputs("s")) y += panLength
-    if (digitalInputs("d")) x += panLength
+    if (digitalInputs("w")) y += panLength
+    if (digitalInputs("a")) x += panLength
+    if (digitalInputs("s")) y -= panLength
+    if (digitalInputs("d")) x -= panLength
 
     if (digitalInputs("MOUSE_LEFT")) {
-      x += sketch.mouseX - sketch.pmouseX
-      y += sketch.mouseY - sketch.pmouseY
+      x -= (sketch.mouseX - sketch.pmouseX) / scale
+      y -= (sketch.mouseY - sketch.pmouseY) / scale
     }
 
     pos = Vec2(x, y)
@@ -87,5 +95,4 @@ class Camera(var sketch: PApplet) {
 
   def mouseWheel(event: MouseEvent): Unit =
     scale += scale * event.getCount * zoomSensitivity
-
 }

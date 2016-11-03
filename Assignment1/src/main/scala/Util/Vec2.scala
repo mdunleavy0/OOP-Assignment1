@@ -28,7 +28,7 @@ class Vec2(val x: Float, val y: Float) {
 
   def map(f: Float => Float): Vec2 = Vec2(f(x), f(y))
 
-  lazy val norm: Vec2 = Vec2 fromAngle angle
+  lazy val norm: Vec2 = Vec2 fromAngle (angle, 1f)
 
   override def toString: String = "Vec2(" + x + "," + y + ")"
 }
