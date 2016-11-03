@@ -19,6 +19,7 @@ class CameraTest extends PApplet {
   override def draw() = {
     background(255)
 
+    // grid lines
     pushMatrix()
     translate(winW / 2, winH / 2)
     strokeWeight(2)
@@ -38,21 +39,17 @@ class CameraTest extends PApplet {
 
     noStroke()
 
-    fill(100, 200, 200)
-    ellipse(c1.center.x, c1.center.y, c1.radius, c1.radius)
+    drewC1 = (cam likelyShows c1) && (c1.radius * cam.scale > 1)
+    if (drewC1) {
+      fill(100, 200, 200)
+      ellipse(c1.center.x, c1.center.y, c1.radius, c1.radius)
+    }
 
-    fill(100, 255, 255)
-    ellipse(c2.center.x, c2.center.y, c2.radius, c2.radius)
-
-    strokeWeight(5)
-    stroke(0)
-
-    fill(255, 0, 0)
-    ellipse(cam.pos.x, cam.pos.y, 50, 50)
-
-    fill(255, 0, 0)
-    val unprojection = cam.unproject(Vec2(500, 500))
-    ellipse(unprojection.x, unprojection.y, 25, 25)
+    drewC2 = (cam likelyShows c2) && (c2.radius * cam.scale > 1)
+    if (drewC2) {
+      fill(100, 255, 255)
+      ellipse(c2.center.x, c2.center.y, c2.radius, c2.radius)
+    }
 
     cam.untransform()
   }
@@ -63,15 +60,13 @@ class CameraTest extends PApplet {
   var cam = new Camera(this)
   val c1 = Circle(0, 0, winW)
   val c2 = Circle(-winW / 4, 0, winW / 2)
+  var drewC1 = false
+  var drewC2 = false
 
   override def keyPressed(event: KeyEvent): Unit = {
     cam.keyPressed(event)
     if (key == ' ') {
-      println("cam.pos: " + cam.pos)
-      println("project(cam.pos): " + cam.project(cam.pos))
-      println("unproject(0, 0): " + cam.unproject(Vec2(0, 0)))
-      println("circumcircle: " + cam.circumcircle)
-      printf("c1: %b, c2: %b\n\n", cam likelyShows c1, cam likelyShows c2)
+      printf("Drew c1: %b, Drew c2: %b\n", drewC1, drewC2)
     }
   }
 
