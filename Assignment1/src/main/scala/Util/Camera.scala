@@ -19,8 +19,8 @@ class Camera(var sketch: PApplet) {
   var panTime = 0.5f
   var zoomSensitivity = 0.5f
 
-  private def circumcircleRadius: Float = pos dist unproject(Vec2(0f, 0f))
-  /*private*/ def circumcircle: Circle = Circle(pos, circumcircleRadius)
+  private def circumcircleRadius: Float = (pos dist unproject(Vec2(0f, 0f))) * 0.5f
+  private def circumcircle: Circle = Circle(pos, circumcircleRadius)
 
   private def halfSketchWidth: Float = sketch.width / 2
   private def halfSketchHeight: Float = sketch.height / 2
@@ -41,6 +41,11 @@ class Camera(var sketch: PApplet) {
     sketch.translate(halfSketchWidth, halfSketchHeight)
     sketch.scale(scale)
     sketch.translate(-pos.x, -pos.y)
+
+    sketch.noFill()
+    sketch.strokeWeight(10 / scale)
+    sketch.stroke(255, 0, 0)
+    sketch.ellipse(pos.x, pos.y, 2 * circumcircleRadius, 2 * circumcircleRadius)
   }
 
   def untransform(): Unit = sketch.popMatrix()
@@ -95,4 +100,8 @@ class Camera(var sketch: PApplet) {
 
   def mouseWheel(event: MouseEvent): Unit =
     scale += scale * event.getCount * zoomSensitivity
+}
+
+object Camera {
+  def apply(sketch: PApplet): Camera = new Camera(sketch)
 }

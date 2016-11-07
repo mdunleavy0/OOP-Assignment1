@@ -14,7 +14,7 @@ The project includes elements of the following:
 * Functional object oriented programming
 * Domain specific data collections
 * Recursive design
-* Occlusion culling
+* Visibility culling
 * Two dimensional cameras / projection
 * Collision detection
 * Graph theory

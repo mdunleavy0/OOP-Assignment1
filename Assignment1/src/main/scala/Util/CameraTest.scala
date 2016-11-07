@@ -42,13 +42,13 @@ class CameraTest extends PApplet {
     drewC1 = (cam likelyShows c1) && (c1.radius * cam.scale > 1)
     if (drewC1) {
       fill(100, 200, 200)
-      ellipse(c1.center.x, c1.center.y, c1.radius, c1.radius)
+      ellipse(c1.center.x, c1.center.y, 2 * c1.radius, 2 * c1.radius)
     }
 
     drewC2 = (cam likelyShows c2) && (c2.radius * cam.scale > 1)
     if (drewC2) {
       fill(100, 255, 255)
-      ellipse(c2.center.x, c2.center.y, c2.radius, c2.radius)
+      ellipse(c2.center.x, c2.center.y, 2 * c2.radius, 2 * c2.radius)
     }
 
     cam.untransform()
@@ -58,8 +58,8 @@ class CameraTest extends PApplet {
   val winH = 1000
 
   var cam = new Camera(this)
-  val c1 = Circle(0, 0, winW)
-  val c2 = Circle(-winW / 4, 0, winW / 2)
+  val c1 = Circle(0, 0, winW / 2)
+  val c2 = Circle(-winW / 4, 0, winW / 4)
   var drewC1 = false
   var drewC2 = false
 

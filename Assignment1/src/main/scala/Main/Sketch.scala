@@ -1,10 +1,13 @@
 package Main
 
+import Util.Camera
+import Util.Circle
 import Util.Vec2
 
 import processing.core._
 import processing.core.PApplet._
 import processing.core.PConstants._
+import processing.event._
 
 
 /**
@@ -17,47 +20,96 @@ class Sketch extends PApplet {
 
   override def setup() = {
     frameRate(targetFps)
-    println(sys.radius)
+    cam.targetFps = targetFps
   }
 
   override def draw() = {
     val t: Float = frameCount.toFloat / targetFps
-    if (frameCount % targetFps == 0) background(100, 0, 0)
-    else background(0)
-    drawSystem(sys, t, Vec2(width / 2, height / 2))
+
+    background(0)
+    systemsDrawn = 0
+
+    cam.updatePosition()
+    cam.transform()
+    drawAreas(sys, t)
+    drawOrbits(sys, t)
+    drawCores(sys, t)
+    cam.untransform()
   }
 
   // by contrast, frameRate gives the real fps
   val targetFps = 60
 
-  val winW = 1000
-  val winH = 1000
+  val winW = 2000
+  val winH = 1125
+
+  val cam = Camera(this)
 
   val sys = SolarSystem(Star(50), Orbit(), List(
-    PlanetarySystem(Planet(25), Orbit(150, 2), Nil),
-    PlanetarySystem(Planet(25), Orbit(300, 2, PI), List(
-      LunarSystem(Moon(5), Orbit(50, 2)),
-      LunarSystem(Moon(10), Orbit(80, 2))
+    PlanetarySystem(Planet(25), Orbit(150, 20), Nil),
+    PlanetarySystem(Planet(25), Orbit(300, 20, PI), List(
+      LunarSystem(Moon(5), Orbit(50, 20)),
+      LunarSystem(Moon(10), Orbit(80, 20))
     ))
   ))
 
-  def drawSystem(sys: System, t: Float, center: Vec2): Unit = {
+  var systemsDrawn = 0
+
+  def drawCores(sys: System, t: Float, center: Vec2 = Vec2(0f, 0f)): Unit = {
+    val pos = sys.position(t, center)
+    val sysCircle = Circle(pos, sys.radius)
+
+    if (cam likelyShows sysCircle) {
+      // draw core
+      fill(255)
+      noStroke()
+      ellipse(pos.x, pos.y, sys.core.diameter, sys.core.diameter)
+
+      // draw satellites
+      sys.satellites foreach (drawCores(_, t, pos))
+    }
+  }
+
+  def drawOrbits(sys: System, t: Float, center: Vec2 = Vec2(0f, 0f)): Unit = {
+    val pos = sys.position(t, center)
+    val sysCircle = Circle(center, sys.orbit.radius + sys.radius)
+
+    if (cam likelyShows sysCircle) {
+      // draw orbit path
+      stroke(100)
+      strokeWeight(3)
+      noFill()
+      ellipse(center.x, center.y, sys.orbit.diameter, sys.orbit.diameter)
+
+      // draw satellites
+      sys.satellites foreach (drawOrbits(_, t, pos))
+    }
+  }
+
+  def drawAreas(sys: System, t: Float, center: Vec2 = Vec2(0f, 0f)): Unit = {
     val pos = sys.position(t, center)
 
-    // draw orbit path
-    stroke(100)
-    strokeWeight(3)
-    noFill()
-    ellipse(center.x, center.y, sys.orbit.diameter, sys.orbit.diameter)
-
-    // draw core
-    fill(255)
     noStroke()
-    ellipse(pos.x, pos.y, sys.core.diameter, sys.core.diameter)
+    fill(255, 0, 0, 0.1f * 255)
+    ellipse(pos.x, pos.y, 2 * sys.radius, 2 * sys.radius)
 
-    // draw satellites
-    sys.satellites foreach (drawSystem(_, t, pos))
+    sys.satellites foreach (drawAreas(_, t, pos))
   }
+
+  override def keyPressed(event: KeyEvent): Unit =
+    cam.keyPressed(event)
+
+  override def keyReleased(event: KeyEvent): Unit =
+    cam.keyReleased(event)
+
+  override def mousePressed(event: MouseEvent): Unit =
+    cam.mousePressed(event)
+
+  override def mouseReleased(event: MouseEvent): Unit =
+    cam.mouseReleased(event)
+
+  override def mouseWheel(event: MouseEvent): Unit =
+    cam.mouseWheel(event)
 }
 
 
