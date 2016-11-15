@@ -21,6 +21,9 @@ class Sketch extends PApplet {
   override def setup() = {
     frameRate(targetFps)
     cam.targetFps = targetFps
+
+    println("Solar system radius: " + sys.radius)
+    sys.satellites foreach (ps => println("Planetary system radius: " + ps.radius))
   }
 
   override def draw() = {
@@ -45,13 +48,18 @@ class Sketch extends PApplet {
 
   val cam = Camera(this)
 
-  val sys = SolarSystem(Star(50), Orbit(), List(
-    PlanetarySystem(Planet(25), Orbit(150, 20), Nil),
-    PlanetarySystem(Planet(25), Orbit(300, 20, PI), List(
-      LunarSystem(Moon(5), Orbit(50, 20)),
-      LunarSystem(Moon(10), Orbit(80, 20))
-    ))
-  ))
+  /*val sys = SolarSystem(Star(100), Orbit(), List(
+    PlanetarySystem(Planet(4), Orbit(100, 10), Nil),
+    PlanetarySystem(Planet(9), Orbit(200, 10), Nil),
+    PlanetarySystem(Planet(10), Orbit(300, 10), Nil),
+    PlanetarySystem(Planet(6), Orbit(400, 10), Nil),
+    PlanetarySystem(Planet(50), Orbit(500, 10), Nil),
+    PlanetarySystem(Planet(40), Orbit(600, 10), Nil),
+    PlanetarySystem(Planet(35), Orbit(700, 10), Nil),
+    PlanetarySystem(Planet(30), Orbit(800, 10), Nil)
+  ))*/
+
+  val sys = SolarSystem fromProcedure 500f
 
   var systemsDrawn = 0
 
@@ -77,7 +85,7 @@ class Sketch extends PApplet {
     if (cam likelyShows sysCircle) {
       // draw orbit path
       stroke(100)
-      strokeWeight(3)
+      strokeWeight(0.25f)
       noFill()
       ellipse(center.x, center.y, sys.orbit.diameter, sys.orbit.diameter)
 
