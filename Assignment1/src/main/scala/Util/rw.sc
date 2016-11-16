@@ -1,7 +1,7 @@
-import Util.Vec2
+import Main._
+import Util._
 
-val a = Vec2(10, 10)
-val b = Vec2(20, 20)
 
-val c = a + b
-val a1 = a - b
+val ls = List(Moon, Planet, Star)
+
+val mn = ls(0)(50f)
