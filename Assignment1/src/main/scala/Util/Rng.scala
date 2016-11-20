@@ -5,7 +5,9 @@ import math.{abs, pow}
 /**
   * Created by Michael Dunleavy on 20/11/2016.
   */
-class Rng extends util.Random {
+case class Rng(seed: Long = 0L) extends util.Random {
+  setSeed(seed)
+
   private val defaultExp: Float = 2f
 
   private def lerp(x: Float, min: Float, max: Float): Float =
@@ -26,3 +28,4 @@ class Rng extends util.Random {
   def nextLogNormalRange(min: Float, max: Float, exp: Float = defaultExp): Float =
     lerp(nextLogNormal(exp), min, max)
 }
+

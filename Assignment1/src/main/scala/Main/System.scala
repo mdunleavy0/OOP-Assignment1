@@ -1,6 +1,6 @@
 package Main
 
-import Util.Functions.{randRange, randLogNormalRange}
+import Util.Rng
 import Util.Vec2
 
 import scala.util.Random
@@ -28,13 +28,13 @@ trait SystemCompanion {
   val medianRadius: Float = (minRadius + maxRadius) / 2f
   val underSystems: List[SystemCompanion]
 
-  def fromProcedure(targetRadius: Float, orbitRadius: Float = 0f, rng: Random = Random): System
+  def fromProcedure(targetRadius: Float, orbitRadius: Float = 0f, rng: Rng = Rng()): System
 
-  def randomSatellites(spaceUsed: Float, targetRadius: Float, rng: Random = Random): List[System] = {
+  def randomSatellites(spaceUsed: Float, targetRadius: Float, rng: Rng = Rng()): List[System] = {
     val us: SystemCompanion = underSystems(rng.nextInt(underSystems.length))
 
-    val sysRadius = randRange(us.minRadius, us.maxRadius, rng)
-    val padding = randRange(0.25f * sysRadius, 1.5f * sysRadius)
+    val sysRadius = rng.nextRange(us.minRadius, us.maxRadius)
+    val padding = rng.nextRange(0.25f * sysRadius, 1.5f * sysRadius)
     val orbitRadius = spaceUsed + padding + sysRadius
 
     if (spaceUsed + orbitRadius > targetRadius) Nil
@@ -63,7 +63,7 @@ object SolarSystem extends SystemCompanion {
   val (minRadius, maxRadius) = (100f, 1000f)
   val underSystems = List(PlanetarySystem)
 
-  def fromProcedure(targetRadius: Float, orbitRadius: Float = 0f, rng: Random = Random): System = {
+  def fromProcedure(targetRadius: Float, orbitRadius: Float = 0f, rng: Rng = Rng()): System = {
     val coreRadius = targetRadius / 12
     val satellites = randomSatellites(coreRadius, targetRadius, rng)
     SolarSystem(Star(coreRadius), Orbit(orbitRadius), satellites)
@@ -79,7 +79,7 @@ object PlanetarySystem extends SystemCompanion {
   val (minRadius, maxRadius) = (1f, 20f)
   val underSystems = List(LunarSystem)
 
-  def fromProcedure(targetRadius: Float, orbitRadius: Float = 0f, rng: Random = Random): System = {
+  def fromProcedure(targetRadius: Float, orbitRadius: Float = 0f, rng: Rng = Rng()): System = {
     val coreRadius = targetRadius / 5
     val satellites = randomSatellites(coreRadius, targetRadius, rng)
     PlanetarySystem(Planet(coreRadius), Orbit(orbitRadius, 100f), satellites)
@@ -95,7 +95,7 @@ object LunarSystem extends SystemCompanion {
   val (minRadius, maxRadius) = (0.1f, 1f)
   val underSystems = Nil
 
-  def fromProcedure(targetRadius: Float, orbitRadius: Float = 0f, rng: Random = Random): System = {
+  def fromProcedure(targetRadius: Float, orbitRadius: Float = 0f, rng: Rng = Rng()): System = {
     LunarSystem(Moon(targetRadius), Orbit(orbitRadius, 10f))
   }
 }
