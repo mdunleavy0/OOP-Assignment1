@@ -4,31 +4,35 @@ import processing.core._
 import processing.core.PApplet._
 import processing.core.PConstants._
 
+import util.Random
 
 /**
-  * Created by micha on 20/11/2016.
+  * Created by Michael Dunleavy on 20/11/2016.
   */
-class Gamma extends PApplet {
+class LogNormal extends PApplet {
   override def settings() = {
     size(winW, winH)
   }
 
   override def setup() = {
-    background(255)
+    val rng = new Random(millis)
+    colorMode(HSB, 1f)
+    background(1)
     noStroke()
 
-    for (exp <- 0 until expCount) {
-      val clr = color(random(100, 200), random(100, 200), random(100, 200))
+    for (exp <- 1 to expCount) {
+      val clr = color((exp - 1) * (1f / expCount), 0.5f, 0.75f)
       fill(clr)
 
-      val expY = exp * (winH.toFloat / expCount)
-      println(exp + ", " + expY)
+      val expY = (exp - 1) * (winH.toFloat / expCount)
 
       for (lane <- 0 until laneCount) {
         val y = expY + (lane + 0.5f) * (winH.toFloat / (expCount * laneCount))
 
         for (sample <- 0 until sampleCount) {
-          val x = random(winW)
+          val g = rng.nextGaussian.toFloat
+          val ln = pow(abs(g), exp)
+          val x = ln * width
 
           ellipse(x, y, 10, 10)
         }
@@ -45,12 +49,12 @@ class Gamma extends PApplet {
 
   val expCount = 5
   val laneCount = 5
-  val sampleCount = 5
+  val sampleCount = 25
 }
 
 
-object Gamma {
+object LogNormal {
   def main(args: Array[String]) = {
-    PApplet.main(Array[String]("Roughwork.Gamma"))
+    PApplet.main(Array[String]("Roughwork.LogNormal"))
   }
 }

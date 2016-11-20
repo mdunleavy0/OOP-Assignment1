@@ -80,12 +80,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Gamma.scala" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/Roughwork/Gamma.scala">
+      <file leaf-file-name="LogNormal.scala" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/Roughwork/LogNormal.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="834">
-              <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="537">
+              <caret line="26" column="54" selection-start-line="26" selection-start-column="54" selection-end-line="26" selection-end-column="54" />
+              <folding>
+                <element signature="e#19#43#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -173,6 +175,7 @@
         <option value="$PROJECT_DIR$/src/main/scala/Util/Camera.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/Main/System.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/Roughwork/Gamma.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/Roughwork/LogNormal.scala" />
       </list>
     </option>
   </component>
@@ -238,7 +241,7 @@
       <recent name="C:\Users\micha\Repos\OOP-Assignment1\Assignment1\src\main\scala\Main" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Gamma">
+  <component name="RunManager" selected="Application.LogNormal">
     <configuration default="false" name="CameraTest" type="Application" factoryName="Application" temporary="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -279,14 +282,14 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="Gamma" type="Application" factoryName="Application" temporary="true">
+    <configuration default="false" name="LogNormal" type="Application" factoryName="Application" temporary="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
           <option name="PATTERN" value="Roughwork.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="MAIN_CLASS_NAME" value="Roughwork.Gamma" />
+      <option name="MAIN_CLASS_NAME" value="Roughwork.LogNormal" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -761,11 +764,11 @@
     <list size="3">
       <item index="0" class="java.lang.String" itemvalue="Application.CameraTest" />
       <item index="1" class="java.lang.String" itemvalue="Application.Sketch" />
-      <item index="2" class="java.lang.String" itemvalue="Application.Gamma" />
+      <item index="2" class="java.lang.String" itemvalue="Application.LogNormal" />
     </list>
     <recent_temporary>
       <list size="3">
-        <item index="0" class="java.lang.String" itemvalue="Application.Gamma" />
+        <item index="0" class="java.lang.String" itemvalue="Application.LogNormal" />
         <item index="1" class="java.lang.String" itemvalue="Application.Sketch" />
         <item index="2" class="java.lang.String" itemvalue="Application.CameraTest" />
       </list>
@@ -837,12 +840,12 @@
       <workItem from="1479290281164" duration="3549000" />
       <workItem from="1479462959322" duration="1536000" />
       <workItem from="1479558779778" duration="962000" />
-      <workItem from="1479645209414" duration="3975000" />
+      <workItem from="1479645209414" duration="6282000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="79583000" />
+    <option name="totallyTimeSpent" value="81890000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-12" y="0" width="1524" height="1922" extended-state="0" />
@@ -1310,11 +1313,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/Roughwork/Gamma.scala">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/Roughwork/LogNormal.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="834">
-          <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="537">
+          <caret line="26" column="54" selection-start-line="26" selection-start-column="54" selection-end-line="26" selection-end-column="54" />
+          <folding>
+            <element signature="e#19#43#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
