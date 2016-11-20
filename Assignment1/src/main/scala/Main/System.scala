@@ -1,6 +1,6 @@
 package Main
 
-import Util.Functions.randRange
+import Util.Functions.{randRange, randLogNormalRange}
 import Util.Vec2
 
 import scala.util.Random
