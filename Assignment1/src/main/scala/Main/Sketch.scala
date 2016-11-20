@@ -23,6 +23,7 @@ class Sketch extends PApplet {
     cam.targetFps = targetFps
 
     println("Solar system radius: " + sys.radius)
+    println("Planet count: " + sys.satellites.length)
     sys.satellites foreach (ps => println("Planetary system radius: " + ps.radius))
   }
 
@@ -59,7 +60,7 @@ class Sketch extends PApplet {
     PlanetarySystem(Planet(30), Orbit(800, 10), Nil)
   ))*/
 
-  val sys = SolarSystem fromProcedure 500f
+  val sys = SolarSystem fromProcedure SolarSystem.medianRadius
 
   var systemsDrawn = 0
 
