@@ -25,18 +25,22 @@ trait System {
 trait SystemCompanion {
   val minRadius: Float
   val maxRadius: Float
+  val medianRadius: Float = (minRadius + maxRadius) / 2f
   val underSystems: List[SystemCompanion]
 
   def fromProcedure(targetRadius: Float, orbitRadius: Float = 0f, rng: Random = Random): System
 
   def randomSatellites(spaceUsed: Float, targetRadius: Float, rng: Random = Random): List[System] = {
-    val sysRadius = randRange(underSystems.head.minRadius, underSystems.head.maxRadius, rng)
-    val orbitRadius = spaceUsed + randRange(2 * sysRadius, 4 * sysRadius)
+    val us: SystemCompanion = underSystems(rng.nextInt(underSystems.length))
+
+    val sysRadius = randRange(us.minRadius, us.maxRadius, rng)
+    val padding = randRange(0.25f * sysRadius, 1.5f * sysRadius)
+    val orbitRadius = spaceUsed + padding + sysRadius
 
     if (spaceUsed + orbitRadius > targetRadius) Nil
 
-    else (underSystems.head fromProcedure (sysRadius, orbitRadius, rng)) ::
-      randomSatellites(sysRadius + orbitRadius, targetRadius, rng)
+    else (us fromProcedure (sysRadius, orbitRadius, rng)) ::
+      randomSatellites(orbitRadius + sysRadius + padding, targetRadius, rng)
   }
 }
 
@@ -60,7 +64,7 @@ object SolarSystem extends SystemCompanion {
   val underSystems = List(PlanetarySystem)
 
   def fromProcedure(targetRadius: Float, orbitRadius: Float = 0f, rng: Random = Random): System = {
-    val coreRadius = targetRadius / 8
+    val coreRadius = targetRadius / 12
     val satellites = randomSatellites(coreRadius, targetRadius, rng)
     SolarSystem(Star(coreRadius), Orbit(orbitRadius), satellites)
   }
