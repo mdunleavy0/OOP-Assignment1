@@ -2,6 +2,7 @@ package Main
 
 import Util.Camera
 import Util.Circle
+import Util.Rng
 import Util.Vec2
 
 import processing.core._
@@ -21,21 +22,20 @@ class Sketch extends PApplet {
   override def setup() = {
     frameRate(targetFps)
     cam.targetFps = targetFps
-
+    colorMode(HSB, 1f)
     println("Solar system radius: " + sys.radius)
     println("Planet count: " + sys.satellites.length)
-    sys.satellites foreach (ps => println("Planetary system radius: " + ps.radius))
   }
 
   override def draw() = {
     val t: Float = frameCount.toFloat / targetFps
 
-    background(0)
+    background(0f)
     systemsDrawn = 0
 
     cam.updatePosition()
     cam.transform()
-    drawAreas(sys, t)
+    //drawAreas(sys, t)
     drawOrbits(sys, t)
     drawCores(sys, t)
     cam.untransform()
@@ -60,7 +60,7 @@ class Sketch extends PApplet {
     PlanetarySystem(Planet(30), Orbit(800, 10), Nil)
   ))*/
 
-  val sys = SolarSystem fromProcedure SolarSystem.medianRadius
+  val sys = SolarSystem fromProcedure (SolarSystem.medianRadius, 0f, Rng(millis))
 
   var systemsDrawn = 0
 
@@ -70,7 +70,8 @@ class Sketch extends PApplet {
 
     if (cam likelyShows sysCircle) {
       // draw core
-      fill(255)
+      val clr = sys.core.color
+      fill(clr.h, clr.s, clr.b, clr.a)
       noStroke()
       ellipse(pos.x, pos.y, sys.core.diameter, sys.core.diameter)
 
@@ -85,7 +86,7 @@ class Sketch extends PApplet {
 
     if (cam likelyShows sysCircle) {
       // draw orbit path
-      stroke(100)
+      stroke(0.333f)
       strokeWeight(0.25f)
       noFill()
       ellipse(center.x, center.y, sys.orbit.diameter, sys.orbit.diameter)
@@ -99,7 +100,7 @@ class Sketch extends PApplet {
     val pos = sys.position(t, center)
 
     noStroke()
-    fill(255, 0, 0, 0.1f * 255)
+    fill(1f, 0f, 0f, 0.1f)
     ellipse(pos.x, pos.y, 2 * sys.radius, 2 * sys.radius)
 
     sys.satellites foreach (drawAreas(_, t, pos))
