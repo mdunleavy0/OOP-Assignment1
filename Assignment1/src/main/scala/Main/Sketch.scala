@@ -31,11 +31,12 @@ class Sketch extends PApplet {
     background(0)
 
     val v1 = visibleSystems(sys, t)
+    val v2 = visibleOrbits(sys, t)
 
     cam.updatePosition()
     cam.transform()
     drawAreas(sys, t)
-    drawOrbits(v1, t)
+    drawOrbits(v2, t)
     drawCores(v1, t)
     cam.untransform()
   }
@@ -59,15 +60,26 @@ class Sketch extends PApplet {
     val pos = sys.position(t, center)
     val sysCircle = Circle(pos, sys.radius)
 
-    if (cam likelyShows sysCircle)
-      System(
-        sys.core,
-        sys.orbit,
-        sys.satellites map (visibleSystems(_, t, pos)) filter (_ != NoSystem)
-      )
+    if (cam likelyShows sysCircle) System(
+      sys.core,
+      sys.orbit,
+      sys.satellites map (visibleSystems(_, t, pos)) filter (_ != NoSystem)
+    )
 
-    else
-      NoSystem
+    else NoSystem
+  }
+
+  def visibleOrbits(sys: System, t: Float, center: Vec2 = Vec2(0, 0)): System = {
+    val pos = sys.position(t, center)
+    val orbCircle = Circle(center, sys.orbit.radius + sys.radius)
+
+    if (cam likelyShows orbCircle) System(
+      sys.core,
+      sys.orbit,
+      sys.satellites map (visibleOrbits(_, t, pos)) filter (_ != NoSystem)
+    )
+
+    else NoSystem
   }
 
   def drawCores(sys: System, t: Float, center: Vec2 = Vec2(0, 0)): Unit = {
