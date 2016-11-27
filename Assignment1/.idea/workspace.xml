@@ -37,8 +37,8 @@
       <file leaf-file-name="Sketch.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/Main/Sketch.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2091">
-              <caret line="27" column="58" selection-start-line="27" selection-start-column="58" selection-end-line="27" selection-end-column="58" />
+            <state relative-caret-position="264">
+              <caret line="42" column="40" selection-start-line="42" selection-start-column="40" selection-end-line="42" selection-end-column="40" />
               <folding>
                 <element signature="e#14#32#0" expanded="true" />
               </folding>
@@ -93,8 +93,32 @@
       <file leaf-file-name="SystemGenerator.scala" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/scala/Main/SystemGenerator.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="902">
-              <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+            <state relative-caret-position="492">
+              <caret line="30" column="58" selection-start-line="30" selection-start-column="58" selection-end-line="30" selection-end-column="58" />
+              <folding>
+                <element signature="e#14#40#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GalaxyDistribution.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/Roughwork/GalaxyDistribution.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-82">
+              <caret line="16" column="20" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="20" />
+              <folding>
+                <element signature="e#19#37#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Circle.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/Util/Circle.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="492">
+              <caret line="12" column="16" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -161,6 +185,7 @@
         <option value="$PROJECT_DIR$/src/main/scala/Main/System.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/Main/Satellite.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/Util/Rng.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/Roughwork/GalaxyDistribution.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/Main/Sketch.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/Main/SystemGenerator.scala" />
       </list>
@@ -248,6 +273,10 @@
               <option name="myItemId" value="Util" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Vec2.scala" />
+              <option name="myItemType" value="org.jetbrains.plugins.scala.components.ScalaDefsProjectViewProvider$ScalaFileTreeNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -268,6 +297,96 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="scala" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Util" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Assignment1" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Assignment1" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scala" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Util" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Circle.scala" />
+              <option name="myItemType" value="org.jetbrains.plugins.scala.components.ScalaDefsProjectViewProvider$ScalaFileTreeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Assignment1" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Assignment1" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scala" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Roughwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LogNormal.scala" />
+              <option name="myItemType" value="org.jetbrains.plugins.scala.components.ScalaDefsProjectViewProvider$ScalaFileTreeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Assignment1" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Assignment1" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scala" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Roughwork" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -415,6 +534,26 @@
         </pattern>
       </extension>
       <option name="MAIN_CLASS_NAME" value="Main.Sketch" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="assignment1" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="GalaxyDistribution" type="Application" factoryName="Application" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="Roughwork.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="Roughwork.GalaxyDistribution" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -886,18 +1025,20 @@
       <envs />
       <method />
     </configuration>
-    <list size="4">
+    <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Application.CameraTest" />
       <item index="1" class="java.lang.String" itemvalue="Application.Sketch" />
       <item index="2" class="java.lang.String" itemvalue="Application.LogNormal" />
       <item index="3" class="java.lang.String" itemvalue="Application.Sketch (1)" />
+      <item index="4" class="java.lang.String" itemvalue="Application.GalaxyDistribution" />
     </list>
     <recent_temporary>
-      <list size="4">
+      <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Application.Sketch (1)" />
-        <item index="1" class="java.lang.String" itemvalue="Application.Sketch" />
-        <item index="2" class="java.lang.String" itemvalue="Application.LogNormal" />
-        <item index="3" class="java.lang.String" itemvalue="Application.CameraTest" />
+        <item index="1" class="java.lang.String" itemvalue="Application.GalaxyDistribution" />
+        <item index="2" class="java.lang.String" itemvalue="Application.Sketch" />
+        <item index="3" class="java.lang.String" itemvalue="Application.LogNormal" />
+        <item index="4" class="java.lang.String" itemvalue="Application.CameraTest" />
       </list>
     </recent_temporary>
   </component>
@@ -970,12 +1111,12 @@
       <workItem from="1479645209414" duration="13611000" />
       <workItem from="1479726261757" duration="7429000" />
       <workItem from="1479826185208" duration="14000" />
-      <workItem from="1480250648241" duration="22775000" />
+      <workItem from="1480250648241" duration="34106000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="119437000" />
+    <option name="totallyTimeSpent" value="130768000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-14" y="-14" width="3028" height="1938" extended-state="6" />
@@ -1006,6 +1147,7 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" x="86" y="86" width="2828" height="1738" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298969" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1031,14 +1173,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/scala/OldMain/Satellite.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1066">
-          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/OldMain/Orbit.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="287">
@@ -1272,13 +1406,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/Main/test.scala" />
-    <entry file="file://$PROJECT_DIR$/src/main/scala/Util/Circle.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="410">
-          <caret line="10" column="20" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/Util/rw.sc">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="205">
@@ -1287,13 +1414,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/Util/ExampleSketch.scala" />
-    <entry file="file://$PROJECT_DIR$/src/main/scala/Util/Vec2.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="574">
-          <caret line="14" column="52" selection-start-line="14" selection-start-column="52" selection-end-line="14" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/Roughwork/LogNormal.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="414">
@@ -1398,22 +1518,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/Main/System.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="588">
-          <caret line="20" column="24" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/Main/Satellite.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="670">
-          <caret line="19" column="17" selection-start-line="19" selection-start-column="17" selection-end-line="19" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/OldMain/System.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="410">
@@ -1432,10 +1536,52 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/Util/Vec2.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-164">
+          <caret line="14" column="52" selection-start-line="14" selection-start-column="52" selection-end-line="14" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/Util/Circle.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="492">
+          <caret line="12" column="16" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/Roughwork/GalaxyDistribution.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-82">
+          <caret line="16" column="20" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="20" />
+          <folding>
+            <element signature="e#19#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/Main/Satellite.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="670">
+          <caret line="19" column="17" selection-start-line="19" selection-start-column="17" selection-end-line="19" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/Main/System.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="588">
+          <caret line="20" column="24" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/Main/Sketch.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2091">
-          <caret line="27" column="58" selection-start-line="27" selection-start-column="58" selection-end-line="27" selection-end-column="58" />
+        <state relative-caret-position="264">
+          <caret line="42" column="40" selection-start-line="42" selection-start-column="40" selection-end-line="42" selection-end-column="40" />
           <folding>
             <element signature="e#14#32#0" expanded="true" />
           </folding>
@@ -1444,9 +1590,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/Main/SystemGenerator.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="902">
-          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="492">
+          <caret line="30" column="58" selection-start-line="30" selection-start-column="58" selection-end-line="30" selection-end-column="58" />
+          <folding>
+            <element signature="e#14#40#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

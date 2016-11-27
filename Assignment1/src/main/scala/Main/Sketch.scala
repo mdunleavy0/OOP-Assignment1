@@ -39,7 +39,15 @@ class Sketch extends PApplet {
     cam.updatePosition()
     cam.transform()
     drawAreas(sys, t)
-    drawOrbits(vo, t)
+
+    vo.satellites foreach {solarSys => {
+      val solPos = solarSys.position(t, Vec2(0, 0))
+      solarSys.satellites foreach (drawOrbits(_, t, solPos))
+    }}
+
+    //val pos = sys.position(t, center)
+    //sys.satellites foreach (drawOrbits(_, t, pos))
+
     drawCores(vs, t)
     cam.untransform()
   }
@@ -59,8 +67,8 @@ class Sketch extends PApplet {
     ))
   ))*/
 
-  //val sys = SystemGenerator.galaxy(Rng(millis()))
-  val sys = SystemGenerator.solarSystem(Rng(millis()))
+  val sys = SystemGenerator.galaxy(Rng(millis()))
+  //val sys = SystemGenerator.solarSystem(Rng(millis()))
   //val sys = SystemGenerator.planetarySystem(Rng(millis()))
   //val sys = SystemGenerator.lunarSystem(Rng(millis()))
 

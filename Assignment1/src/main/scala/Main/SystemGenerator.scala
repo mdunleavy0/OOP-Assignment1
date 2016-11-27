@@ -1,6 +1,9 @@
 package Main
 
+import Util.Constants.TauF
 import Util.Rng
+import Util.Vec2
+
 
 /**
   * Created by Michael Dunleavy on 27/11/2016.
@@ -8,23 +11,40 @@ import Util.Rng
 object SystemGenerator {
 
   def galaxy(rng: Rng = Rng()): System = {
-    val radius = 100000
+    val maxSolarSysRadius = 14 * 500
+
+    val radius = 500000
+    val revs = 1
     val corePadding = 5000
 
-    def generateSatellites(spaceUsed: Float): List[System] = {
-      val sat = solarSystem(rng)
-      val satPadding = 1000
-      val orbitRadius = spaceUsed + sat.radius
-      val satOrbit = Orbit(orbitRadius)
-      val sat1 = System(sat.core, satOrbit, sat.satellites)
+    val armCount = 4
 
-      if (orbitRadius < radius) sat1 ::
-        generateSatellites(orbitRadius + sat.radius + satPadding)
+    val spiralConstant = radius / (revs * TauF)
+    def theta(r: Float): Float = r / spiralConstant
+
+    def generateArmPositions(mag: Float, baseAngle: Float): List[Vec2] = {
+      //val (minRadialSeparation, maxRadialSeparation) = (maxSolarSysRadius, maxSolarSysRadius)
+
+      val maxAngularDeviance = TauF / 30
+      val angularDeviance = rng.nextNormalRange(-maxAngularDeviance, maxAngularDeviance)
+
+      val angle = baseAngle + theta(mag) + angularDeviance
+
+      if (mag + maxSolarSysRadius < radius) (Vec2 fromAngle (angle, mag)) ::
+        generateArmPositions(mag + maxSolarSysRadius, baseAngle)
 
       else Nil
     }
 
-    val satellites = generateSatellites(corePadding)
+    val positions = (for (baseAngle <- 0f until (TauF, TauF / armCount))
+      yield generateArmPositions(corePadding, baseAngle)).flatten.toList
+
+    val satellites = positions map (pos => {
+      val partialSat = solarSystem(rng)
+      val orbit = Orbit(pos.mag, Float.PositiveInfinity, pos.angle)
+      System(partialSat.core, orbit, partialSat.satellites)
+    })
+
     System(NoSatellite, NoOrbit, satellites)
   }
 
