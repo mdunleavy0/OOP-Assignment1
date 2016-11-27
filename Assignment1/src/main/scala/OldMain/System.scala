@@ -1,4 +1,4 @@
-package Main
+package OldMain
 
 import Util.Rng
 import Util.Vec2
@@ -80,8 +80,17 @@ case class Galaxy(satellites: List[System]) extends System {
   val orbit = Orbit()
 }
 
-object Galaxy {
+object Galaxy extends SystemCompanion {
+  val (minRadius, maxRadius, radiusExp) = (1000000f, 1000000f, 1f)
+  val (minPaddingRatio, maxPaddingRatio, paddingExp) = (2f, 6f, 2f)
+  val (minCoreRatio, maxCoreRatio, coreRatioExp) = (1f, 1f, 1f)
+  val (minOrbitPeriod, maxOrbitPeriod, orbitPeriodExp) = (Float.PositiveInfinity, Float.PositiveInfinity, 1f)
+  val underSystems = List(SolarSystem)
 
+  def fromProcedure(targetRadius: Float, orbitRadius: Float = 0f, rng: Rng = Rng()): System = {
+    val satellites = randomSatellites(0, targetRadius, rng)
+    Galaxy(satellites)
+  }
 }
 
 
@@ -95,7 +104,6 @@ object SolarSystem extends SystemCompanion {
   val (minCoreRatio, maxCoreRatio, coreRatioExp) = (1f / 25, 1f / 10, 4f)
   val (minOrbitPeriod, maxOrbitPeriod, orbitPeriodExp) = (Float.PositiveInfinity, Float.PositiveInfinity, 1f)
   val underSystems = List(PlanetarySystem)
-
 
   def fromProcedure(targetRadius: Float, orbitRadius: Float = 0f, rng: Rng = Rng()): System = {
     val coreRadius = randomCoreRadius(targetRadius, rng)

@@ -1,4 +1,4 @@
-package Main
+package OldMain
 
 import Util.Camera
 import Util.Circle
@@ -36,7 +36,7 @@ class Sketch extends PApplet {
     cam.updatePosition()
     cam.transform()
     //drawAreas(sys, t)
-    drawOrbits(sys, t)
+    sys.satellites foreach  (s => drawOrbits(s, t))
     drawCores(sys, t)
     cam.untransform()
   }
@@ -49,18 +49,8 @@ class Sketch extends PApplet {
 
   val cam = Camera(this)
 
-  /*val sys = SolarSystem(Star(100), Orbit(), List(
-    PlanetarySystem(Planet(4), Orbit(100, 10), Nil),
-    PlanetarySystem(Planet(9), Orbit(200, 10), Nil),
-    PlanetarySystem(Planet(10), Orbit(300, 10), Nil),
-    PlanetarySystem(Planet(6), Orbit(400, 10), Nil),
-    PlanetarySystem(Planet(50), Orbit(500, 10), Nil),
-    PlanetarySystem(Planet(40), Orbit(600, 10), Nil),
-    PlanetarySystem(Planet(35), Orbit(700, 10), Nil),
-    PlanetarySystem(Planet(30), Orbit(800, 10), Nil)
-  ))*/
-
-  val sys = SolarSystem fromProcedure (SolarSystem.medianRadius, 0f, Rng(millis))
+  // val sys = Galaxy fromProcedure (Galaxy.medianRadius, 0f, Rng(millis))
+   val sys = SolarSystem fromProcedure (SolarSystem.medianRadius, 0f, Rng(millis))
 
   var systemsDrawn = 0
 
@@ -69,13 +59,11 @@ class Sketch extends PApplet {
     val sysCircle = Circle(pos, sys.radius)
 
     if (cam likelyShows sysCircle) {
-      // draw core
       val clr = sys.core.color
       fill(clr.h, clr.s, clr.b, clr.a)
       noStroke()
       ellipse(pos.x, pos.y, sys.core.diameter, sys.core.diameter)
 
-      // draw satellites
       sys.satellites foreach (drawCores(_, t, pos))
     }
   }
@@ -85,13 +73,11 @@ class Sketch extends PApplet {
     val sysCircle = Circle(center, sys.orbit.radius + sys.radius)
 
     if (cam likelyShows sysCircle) {
-      // draw orbit path
       stroke(0.333f)
-      strokeWeight(0.25f)
+      strokeWeight(3f / cam.scale)
       noFill()
       ellipse(center.x, center.y, sys.orbit.diameter, sys.orbit.diameter)
 
-      // draw satellites
       sys.satellites foreach (drawOrbits(_, t, pos))
     }
   }
@@ -125,6 +111,6 @@ class Sketch extends PApplet {
 
 object Sketch {
   def main(args: Array[String]) = {
-    PApplet.main(Array[String]("Main.Sketch"))
+    PApplet.main(Array[String]("OldMain.Sketch"))
   }
 }
