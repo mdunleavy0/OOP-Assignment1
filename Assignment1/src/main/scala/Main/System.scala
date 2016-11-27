@@ -12,4 +12,9 @@ case class System(
   satellites: List[System] = Nil
 ) {
   def position(time: Float, center: Vec2): Vec2 = center + orbit.displacement(time)
+
+  def foreach(f: System => Unit): Unit = {
+    f(this)
+    satellites foreach f
+  }
 }

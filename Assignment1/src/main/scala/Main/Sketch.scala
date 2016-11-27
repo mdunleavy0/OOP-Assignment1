@@ -29,6 +29,13 @@ class Sketch extends PApplet {
     val t: Float = frameCount.toFloat / targetFps
 
     background(0f)
+
+    cam.updatePosition()
+    cam.transform()
+    //drawAreas(sys, t)
+    //sys.satellites foreach  (s => drawOrbits(s, t))
+    drawCores(sys, t)
+    cam.untransform()
   }
 
   val targetFps = 60
@@ -37,6 +44,40 @@ class Sketch extends PApplet {
   val winH = 1125
 
   val cam = Camera(this)
+
+  val sys = System(Star(100), NoOrbit, List(
+    System(Planet(10), Orbit(200, 100), Nil),
+    System(Planet(10), Orbit(300, 100), List(
+      System(Moon(1), Orbit(20, 10), Nil),
+      System(Moon(1), Orbit(30, 10), Nil)
+    ))
+  ))
+
+  def drawCores(sys: System, t: Float, center: Vec2 = Vec2(0f, 0f)): Unit = {
+    val pos = sys.position(t, center)
+    val d = sys.core.diameter
+
+    fill(1, 0, 1)
+    noStroke()
+    ellipse(pos.x, pos.y, d, d)
+
+    sys.satellites foreach (drawCores(_, t, pos))
+  }
+
+  override def keyPressed(event: KeyEvent): Unit =
+    cam.keyPressed(event)
+
+  override def keyReleased(event: KeyEvent): Unit =
+    cam.keyReleased(event)
+
+  override def mousePressed(event: MouseEvent): Unit =
+    cam.mousePressed(event)
+
+  override def mouseReleased(event: MouseEvent): Unit =
+    cam.mouseReleased(event)
+
+  override def mouseWheel(event: MouseEvent): Unit =
+    cam.mouseWheel(event)
 }
 
 

@@ -6,6 +6,7 @@ package Main
   */
 trait Satellite {
   val radius: Float
+  val diameter: Float = 2 * radius
 }
 
 

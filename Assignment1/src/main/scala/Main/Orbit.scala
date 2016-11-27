@@ -20,4 +20,4 @@ case class Orbit(
 }
 
 
-case object NoOrbit extends Orbit()
+object NoOrbit extends Orbit()
