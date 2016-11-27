@@ -28,16 +28,16 @@ class Sketch extends PApplet {
   override def draw() = {
     val t: Float = frameCount.toFloat / targetFps
 
-    background(0)
+    val vs = visibleSystems(sys, t)
+    val vo = visibleOrbits(sys, t)
 
-    val v1 = visibleSystems(sys, t)
-    val v2 = visibleOrbits(sys, t)
+    background(0)
 
     cam.updatePosition()
     cam.transform()
     drawAreas(sys, t)
-    drawOrbits(v2, t)
-    drawCores(v1, t)
+    drawOrbits(vo, t)
+    drawCores(vs, t)
     cam.untransform()
   }
 
@@ -48,13 +48,15 @@ class Sketch extends PApplet {
 
   val cam = Camera(this)
 
-  val sys = System(Star(100), NoOrbit, List(
+  /*val sys = System(Star(100), NoOrbit, List(
     System(Planet(10), Orbit(200, 100), Nil),
     System(Planet(10), Orbit(300, 100), List(
       System(Moon(1), Orbit(20, 10), Nil),
       System(Moon(1), Orbit(30, 10), Nil)
     ))
-  ))
+  ))*/
+
+  val sys = SystemGenerator.planetarySystem(Rng(millis()))
 
   def visibleSystems(sys: System, t: Float, center: Vec2 = Vec2(0, 0)): System = {
     val pos = sys.position(t, center)
