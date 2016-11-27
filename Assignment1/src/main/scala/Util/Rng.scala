@@ -17,6 +17,12 @@ case class Rng(seed: Long = 0L) extends util.Random {
   def nextRange(min: Float, max: Float): Float =
     lerp(nextFloat, min, max)
 
+  def nextNormal: Float =
+    nextGaussian.toFloat / 2 + 0.5f
+
+  def nextNormalRange(min: Float, max: Float): Float =
+    lerp(nextNormal, min, max)
+
   def nextLogUniform(exp: Float = defaultExp) =
     pow(abs(nextFloat), exp).toFloat
 

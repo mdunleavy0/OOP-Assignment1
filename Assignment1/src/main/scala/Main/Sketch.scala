@@ -23,6 +23,9 @@ class Sketch extends PApplet {
     frameRate(targetFps)
     cam.targetFps = targetFps
     colorMode(HSB, 1f)
+
+    println("System radius: " + sys.radius)
+    println("Shallow satellites: " + sys.satellites.length)
   }
 
   override def draw() = {
@@ -56,7 +59,10 @@ class Sketch extends PApplet {
     ))
   ))*/
 
-  val sys = SystemGenerator.galaxy(Rng(millis()))
+  //val sys = SystemGenerator.galaxy(Rng(millis()))
+  val sys = SystemGenerator.solarSystem(Rng(millis()))
+  //val sys = SystemGenerator.planetarySystem(Rng(millis()))
+  //val sys = SystemGenerator.lunarSystem(Rng(millis()))
 
   def visibleSystems(sys: System, t: Float, center: Vec2 = Vec2(0, 0)): System = {
     val pos = sys.position(t, center)
@@ -101,7 +107,7 @@ class Sketch extends PApplet {
 
     noFill()
     stroke(1, 0, 1)
-    strokeWeight(1)
+    strokeWeight(1 / cam.scale)
     ellipse(center.x, center.y, d, d)
 
     sys.satellites foreach (drawOrbits(_, t, pos))
