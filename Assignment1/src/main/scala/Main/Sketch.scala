@@ -28,13 +28,15 @@ class Sketch extends PApplet {
   override def draw() = {
     val t: Float = frameCount.toFloat / targetFps
 
-    background(0f)
+    background(0)
+
+    val v1 = visibleSystems(sys, t)
 
     cam.updatePosition()
     cam.transform()
-    //drawAreas(sys, t)
-    //sys.satellites foreach  (s => drawOrbits(s, t))
-    drawCores(sys, t)
+    drawAreas(sys, t)
+    drawOrbits(v1, t)
+    drawCores(v1, t)
     cam.untransform()
   }
 
@@ -53,7 +55,22 @@ class Sketch extends PApplet {
     ))
   ))
 
-  def drawCores(sys: System, t: Float, center: Vec2 = Vec2(0f, 0f)): Unit = {
+  def visibleSystems(sys: System, t: Float, center: Vec2 = Vec2(0, 0)): System = {
+    val pos = sys.position(t, center)
+    val sysCircle = Circle(pos, sys.radius)
+
+    if (cam likelyShows sysCircle)
+      System(
+        sys.core,
+        sys.orbit,
+        sys.satellites map (visibleSystems(_, t, pos)) filter (_ != NoSystem)
+      )
+
+    else
+      NoSystem
+  }
+
+  def drawCores(sys: System, t: Float, center: Vec2 = Vec2(0, 0)): Unit = {
     val pos = sys.position(t, center)
     val d = sys.core.diameter
 
@@ -62,6 +79,29 @@ class Sketch extends PApplet {
     ellipse(pos.x, pos.y, d, d)
 
     sys.satellites foreach (drawCores(_, t, pos))
+  }
+
+  def drawOrbits(sys: System, t: Float, center: Vec2 = Vec2(0, 0)): Unit = {
+    val pos = sys.position(t, center)
+    val d = sys.orbit.diameter
+
+    noFill()
+    stroke(1, 0, 1)
+    strokeWeight(1)
+    ellipse(center.x, center.y, d, d)
+
+    sys.satellites foreach (drawOrbits(_, t, pos))
+  }
+
+  def drawAreas(sys: System, t: Float, center: Vec2 = Vec2(0, 0)): Unit = {
+    val pos = sys.position(t, center)
+    val d = sys.diameter
+
+    fill(0, 1, 1, 0.1f)
+    noStroke()
+    ellipse(pos.x, pos.y, d, d)
+
+    sys.satellites foreach (drawAreas(_, t, pos))
   }
 
   override def keyPressed(event: KeyEvent): Unit =

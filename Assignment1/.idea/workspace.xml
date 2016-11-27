@@ -37,8 +37,8 @@
       <file leaf-file-name="Sketch.scala" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/scala/Main/Sketch.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
-              <caret line="49" column="37" selection-start-line="49" selection-start-column="37" selection-end-line="49" selection-end-column="37" />
+            <state relative-caret-position="387">
+              <caret line="32" column="35" selection-start-line="32" selection-start-column="35" selection-end-line="32" selection-end-column="35" />
               <folding>
                 <element signature="e#14#32#0" expanded="true" />
               </folding>
@@ -49,8 +49,8 @@
       <file leaf-file-name="Sketch.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/OldMain/Sketch.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1245">
-              <caret line="107" column="25" selection-start-line="94" selection-start-column="2" selection-end-line="107" selection-end-column="25" />
+            <state relative-caret-position="630">
+              <caret line="80" column="21" selection-start-line="80" selection-start-column="21" selection-end-line="80" selection-end-column="21" />
               <folding>
                 <element signature="e#17#35#0" expanded="true" />
               </folding>
@@ -71,8 +71,8 @@
       <file leaf-file-name="Orbit.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/Main/Orbit.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="902">
-              <caret line="22" column="11" selection-start-line="22" selection-start-column="11" selection-end-line="22" selection-end-column="11" />
+            <state relative-caret-position="861">
+              <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
               <folding>
                 <element signature="e#14#40#0" expanded="true" />
               </folding>
@@ -83,8 +83,8 @@
       <file leaf-file-name="System.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/Main/System.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="656">
-              <caret line="16" column="2" selection-start-line="16" selection-start-column="2" selection-end-line="16" selection-end-column="2" />
+            <state relative-caret-position="793">
+              <caret line="25" column="3" selection-start-line="25" selection-start-column="3" selection-end-line="25" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -93,8 +93,8 @@
       <file leaf-file-name="System.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/OldMain/System.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="492">
-              <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+            <state relative-caret-position="656">
+              <caret line="19" column="3" selection-start-line="16" selection-start-column="2" selection-end-line="19" selection-end-column="3" />
               <folding>
                 <element signature="e#17#32#0" expanded="true" />
               </folding>
@@ -150,9 +150,9 @@
         <option value="$PROJECT_DIR$/src/main/scala/OldMain/Sketch.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/OldMain/Orbit.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/Util/Constants.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/Main/System.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/Main/Satellite.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/Main/Orbit.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/Main/System.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/Main/Sketch.scala" />
       </list>
     </option>
@@ -1051,12 +1051,12 @@
       <workItem from="1479645209414" duration="13611000" />
       <workItem from="1479726261757" duration="7429000" />
       <workItem from="1479826185208" duration="14000" />
-      <workItem from="1480250648241" duration="8976000" />
+      <workItem from="1480250648241" duration="11989000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="105638000" />
+    <option name="totallyTimeSpent" value="108651000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-14" y="-14" width="3028" height="1938" extended-state="6" />
@@ -1469,16 +1469,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/OldMain/System.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="492">
-          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding>
-            <element signature="e#17#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/OldMain/Satellite.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="369">
@@ -1487,11 +1477,33 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/Main/System.scala">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/OldMain/System.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="656">
-          <caret line="16" column="2" selection-start-line="16" selection-start-column="2" selection-end-line="16" selection-end-column="2" />
-          <folding />
+          <caret line="19" column="3" selection-start-line="16" selection-start-column="2" selection-end-line="19" selection-end-column="3" />
+          <folding>
+            <element signature="e#17#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/OldMain/Sketch.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="630">
+          <caret line="80" column="21" selection-start-line="80" selection-start-column="21" selection-end-line="80" selection-end-column="21" />
+          <folding>
+            <element signature="e#17#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/Main/Orbit.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="861">
+          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <folding>
+            <element signature="e#14#40#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1503,30 +1515,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/Main/Orbit.scala">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/Main/System.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="902">
-          <caret line="22" column="11" selection-start-line="22" selection-start-column="11" selection-end-line="22" selection-end-column="11" />
-          <folding>
-            <element signature="e#14#40#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/OldMain/Sketch.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1245">
-          <caret line="107" column="25" selection-start-line="94" selection-start-column="2" selection-end-line="107" selection-end-column="25" />
-          <folding>
-            <element signature="e#17#35#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="793">
+          <caret line="25" column="3" selection-start-line="25" selection-start-column="3" selection-end-line="25" selection-end-column="3" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/Main/Sketch.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="49" column="37" selection-start-line="49" selection-start-column="37" selection-end-line="49" selection-end-column="37" />
+        <state relative-caret-position="387">
+          <caret line="32" column="35" selection-start-line="32" selection-start-column="35" selection-end-line="32" selection-end-column="35" />
           <folding>
             <element signature="e#14#32#0" expanded="true" />
           </folding>

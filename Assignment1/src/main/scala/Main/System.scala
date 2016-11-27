@@ -11,6 +11,13 @@ case class System(
   orbit: Orbit = NoOrbit,
   satellites: List[System] = Nil
 ) {
+  lazy val radius: Float = satellites match {
+    case _ :+ last => last.orbit.radius + last.radius
+    case _ => core.radius
+  }
+
+  lazy val diameter: Float = 2 * radius
+
   def position(time: Float, center: Vec2): Vec2 = center + orbit.displacement(time)
 
   def foreach(f: System => Unit): Unit = {
@@ -18,3 +25,5 @@ case class System(
     satellites foreach f
   }
 }
+
+object NoSystem extends System()
