@@ -56,7 +56,7 @@ class Sketch extends PApplet {
     ))
   ))*/
 
-  val sys = SystemGenerator.planetarySystem(Rng(millis()))
+  val sys = SystemGenerator.galaxy(Rng(millis()))
 
   def visibleSystems(sys: System, t: Float, center: Vec2 = Vec2(0, 0)): System = {
     val pos = sys.position(t, center)
