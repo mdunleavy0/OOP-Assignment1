@@ -1,6 +1,7 @@
 package Util
 
 import processing.core._
+import processing.core.PApplet._
 import processing.core.PConstants._
 import processing.event._
 
@@ -19,8 +20,12 @@ class Camera(var sketch: PApplet) {
   var panTime = 0.5f
   var zoomSensitivity = 0.5f
 
-  //private def circumcircleRadius: Float = pos dist unproject(Vec2(0f, 0f))
-  private def circumcircleRadius: Float = (pos dist unproject(Vec2(0f, 0f))) * 0.5f
+  var (minScale, maxScale): (Float, Float) = (Float.NegativeInfinity, Float.PositiveInfinity)
+  var (minX, maxX): (Float, Float) = (Float.NegativeInfinity, Float.PositiveInfinity)
+  var (minY, maxY): (Float, Float) = (Float.NegativeInfinity, Float.PositiveInfinity)
+
+  private def circumcircleRadius: Float = pos dist unproject(Vec2(0f, 0f))
+  //private def circumcircleRadius: Float = (pos dist unproject(Vec2(0f, 0f))) * 0.5f
   private def circumcircle: Circle = Circle(pos, circumcircleRadius)
 
   private def halfSketchWidth: Float = sketch.width / 2
@@ -43,10 +48,10 @@ class Camera(var sketch: PApplet) {
     sketch.scale(scale)
     sketch.translate(-pos.x, -pos.y)
 
-    sketch.noFill()
+    /*sketch.noFill()
     sketch.strokeWeight(10 / scale)
     sketch.stroke(1, 1, 1)
-    sketch.ellipse(pos.x, pos.y, 2 * circumcircleRadius, 2 * circumcircleRadius)
+    sketch.ellipse(pos.x, pos.y, 2 * circumcircleRadius, 2 * circumcircleRadius)*/
   }
 
   def untransform(): Unit = sketch.popMatrix()
@@ -77,6 +82,9 @@ class Camera(var sketch: PApplet) {
       y -= (sketch.mouseY - sketch.pmouseY) / scale
     }
 
+    x = min(max(x, minX), maxX)
+    y = min(max(y, minY), maxY)
+
     pos = Vec2(x, y)
   }
 
@@ -99,8 +107,10 @@ class Camera(var sketch: PApplet) {
     case _ => Unit
   }
 
-  def mouseWheel(event: MouseEvent): Unit =
-    scale += scale * event.getCount * zoomSensitivity
+  def mouseWheel(event: MouseEvent): Unit = {
+    scale += scale * -event.getCount * zoomSensitivity
+    scale = min(max(scale, minScale), maxScale)
+  }
 }
 
 object Camera {

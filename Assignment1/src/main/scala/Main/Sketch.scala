@@ -65,6 +65,13 @@ class Sketch extends PApplet {
 
   val tessellationThresh = 50
 
+  cam.minScale = 0.001f
+  cam.maxScale = 50
+  cam.minX = -sys.radius
+  cam.maxX = sys.radius
+  cam.minY = -sys.radius
+  cam.maxY = sys.radius
+
   def visibleSystems(sys: System, t: Float, center: Vec2 = Vec2(0, 0)): System = {
     val pos = sys.position(t, center)
     val sysCircle = Circle(pos, sys.radius)
@@ -131,8 +138,10 @@ class Sketch extends PApplet {
     sys.satellites foreach (drawAreas(_, t, pos))
   }
 
-  override def keyPressed(event: KeyEvent): Unit =
+  override def keyPressed(event: KeyEvent): Unit = {
     cam.keyPressed(event)
+    if (key == '1') println("Scale " + cam.scale)
+  }
 
   override def keyReleased(event: KeyEvent): Unit =
     cam.keyReleased(event)
