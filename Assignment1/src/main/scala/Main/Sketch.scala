@@ -38,15 +38,14 @@ class Sketch extends PApplet {
 
     cam.updatePosition()
     cam.transform()
-    drawAreas(sys, t)
+    //drawAreas(sys, t)
 
     vo.satellites foreach {solarSys => {
       val solPos = solarSys.position(t, Vec2(0, 0))
       solarSys.satellites foreach (drawOrbits(_, t, solPos))
     }}
 
-    //val pos = sys.position(t, center)
-    //sys.satellites foreach (drawOrbits(_, t, pos))
+    //drawOrbits(vo, t)
 
     drawCores(vs, t)
     cam.untransform()
@@ -59,18 +58,12 @@ class Sketch extends PApplet {
 
   val cam = Camera(this)
 
-  /*val sys = System(Star(100), NoOrbit, List(
-    System(Planet(10), Orbit(200, 100), Nil),
-    System(Planet(10), Orbit(300, 100), List(
-      System(Moon(1), Orbit(20, 10), Nil),
-      System(Moon(1), Orbit(30, 10), Nil)
-    ))
-  ))*/
-
   val sys = SystemGenerator.galaxy(Rng(millis()))
   //val sys = SystemGenerator.solarSystem(Rng(millis()))
   //val sys = SystemGenerator.planetarySystem(Rng(millis()))
   //val sys = SystemGenerator.lunarSystem(Rng(millis()))
+
+  val tessellationThresh = 50
 
   def visibleSystems(sys: System, t: Float, center: Vec2 = Vec2(0, 0)): System = {
     val pos = sys.position(t, center)
@@ -79,7 +72,10 @@ class Sketch extends PApplet {
     if (cam likelyShows sysCircle) System(
       sys.core,
       sys.orbit,
-      sys.satellites map (visibleSystems(_, t, pos)) filter (_ != NoSystem)
+      if (sys.radius * cam.scale > tessellationThresh)
+        sys.satellites map (visibleSystems(_, t, pos)) filter (_ != NoSystem)
+      else
+        Nil
     )
 
     else NoSystem
@@ -92,7 +88,10 @@ class Sketch extends PApplet {
     if (cam likelyShows orbCircle) System(
       sys.core,
       sys.orbit,
-      sys.satellites map (visibleOrbits(_, t, pos)) filter (_ != NoSystem)
+      if (sys.radius * cam.scale > tessellationThresh)
+        sys.satellites map (visibleOrbits(_, t, pos)) filter (_ != NoSystem)
+      else
+        Nil
     )
 
     else NoSystem
@@ -114,7 +113,7 @@ class Sketch extends PApplet {
     val d = sys.orbit.diameter
 
     noFill()
-    stroke(1, 0, 1)
+    stroke(1, 0, 1, 0.5f)
     strokeWeight(1 / cam.scale)
     ellipse(center.x, center.y, d, d)
 
