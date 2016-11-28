@@ -108,7 +108,8 @@ class Sketch extends PApplet {
     val pos = sys.position(t, center)
     val d = sys.core.diameter
 
-    fill(1, 0, 1)
+    val color = sys.core.color
+    fill(color.h, color.s, color.b, color.a)
     noStroke()
     ellipse(pos.x, pos.y, d, d)
 

@@ -54,6 +54,8 @@ object SystemGenerator {
 
     val radius = rng.nextRange(2 * coreRadius, 14 * coreRadius)
     val corePadding = rng.nextRange(0.2f * coreRadius, 0.5f * coreRadius)
+
+    val coreHue = rng.nextFloat
     
     def generateSatellites(spaceUsed: Float): List[System] = {
       val partialSat = planetarySystem(rng)
@@ -73,7 +75,7 @@ object SystemGenerator {
       else Nil
     }
 
-    val core = Star(coreRadius)
+    val core = Star(coreRadius, coreHue)
     val satellites = generateSatellites(coreRadius + corePadding)
 
     System(core, NoOrbit, satellites)
@@ -85,6 +87,8 @@ object SystemGenerator {
 
     val radius = rng.nextRange(2 * coreRadius, 4 * coreRadius)
     val corePadding = rng.nextRange(0.4f * coreRadius, 0.8f * coreRadius)
+
+    val coreHue = rng.nextFloat
 
     def generateSatellites(spaceUsed: Float): List[System] = {
       val partialSat = lunarSystem(rng)
@@ -104,7 +108,7 @@ object SystemGenerator {
       else Nil
     }
 
-    val core = Planet(coreRadius)
+    val core = Planet(coreRadius, coreHue)
     val satellites = generateSatellites(coreRadius + corePadding)
 
     System(core, NoOrbit, satellites)
@@ -114,7 +118,9 @@ object SystemGenerator {
     val (minCoreRadius, maxCoreRadius) = (0.5f, 5)
     val coreRadius = rng.nextLogUniformRange(minCoreRadius, maxCoreRadius, 2)
 
-    val core = Moon(coreRadius)
+    val coreHue = rng.nextFloat
+
+    val core = Moon(coreRadius, coreHue)
 
     System(core)
   }
