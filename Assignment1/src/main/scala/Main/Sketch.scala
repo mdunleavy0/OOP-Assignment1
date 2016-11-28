@@ -34,12 +34,12 @@ class Sketch extends PApplet {
     val vs = visibleSystems(sys, t)
     val vo = visibleOrbits(sys, t)
 
-    if (mouseDownRight) {
+    if (mouseClickedRight) {
       val mouseScreen = Vec2(mouseX, mouseY)
       val mouseModel = cam.unproject(mouseScreen)
       cameraLock = systemAt(mouseModel, vs, t)
+      mouseClickedRight = false
     }
-
 
     background(0)
 
@@ -87,7 +87,7 @@ class Sketch extends PApplet {
   cam.minY = -sys.radius
   cam.maxY = sys.radius
 
-  var mouseDownRight = false
+  var mouseClickedRight = false
   var cameraLock: Option[(System, Vec2)] = None
 
   def drawCores(sys: System, t: Float, center: Vec2 = Vec2(0, 0)): Unit = {
@@ -189,14 +189,11 @@ class Sketch extends PApplet {
     cam.mousePressed(event)
 
     if (mouseButton == RIGHT)
-      mouseDownRight = true
+      mouseClickedRight = true
   }
 
   override def mouseReleased(event: MouseEvent): Unit = {
     cam.mouseReleased(event)
-
-    if (mouseButton == RIGHT)
-      mouseDownRight = false
   }
 
   override def mouseWheel(event: MouseEvent): Unit =
