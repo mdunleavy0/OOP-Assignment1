@@ -57,7 +57,7 @@ class Sketch extends PApplet {
     cam.transform()
 
     cameraLock match {
-      case Some((lockSys)) => vs.findWithPosition((s, _) => s == lockSys, t, Vec2(0, 0)) match {
+      case Some((lockSys)) => vs.findWithPosition((s, _) => s.core == lockSys.core, t, Vec2(0, 0)) match {
         case Some((_, lockPos)) => cam.pos = lockPos
         case None => Unit
       }
