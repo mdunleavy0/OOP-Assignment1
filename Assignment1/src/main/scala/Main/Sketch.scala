@@ -24,21 +24,31 @@ class Sketch extends PApplet {
     cam.targetFps = targetFps
     colorMode(HSB, 1f)
 
-    println("System radius: " + sys.radius)
-    println("Shallow satellites: " + sys.satellites.length)
+    println("System radius: " + masterSys.radius)
+    println("Shallow satellites: " + masterSys.satellites.length)
   }
 
   override def draw() = {
     val t: Float = frameCount.toFloat / targetFps
 
-    val vs = visibleSystems(sys, t)
-    val vo = visibleOrbits(sys, t)
+    val vs = visibleSystems(masterSys, t)
+    val vo = visibleOrbits(masterSys, t)
+
+    if (mouseClickedLeft) {
+      mouseClickedLeft = false
+      cameraLock = None
+    }
 
     if (mouseClickedRight) {
+      mouseClickedRight = false
+
       val mouseScreen = Vec2(mouseX, mouseY)
       val mouseModel = cam.unproject(mouseScreen)
-      cameraLock = systemAt(mouseModel, vs, t)
-      mouseClickedRight = false
+
+      cameraLock = systemAt(mouseModel, vs, t) match {
+        case Some(sys) => Some(sys)
+        case None => cameraLock
+      }
     }
 
     background(0.75f, 1, 0.08f)
@@ -47,7 +57,7 @@ class Sketch extends PApplet {
     cam.transform()
 
     cameraLock match {
-      case Some((lockSys, _)) => vs.findWithPosition((s, _) => s == lockSys, t, Vec2(0, 0)) match {
+      case Some((lockSys)) => vs.findWithPosition((s, _) => s == lockSys, t, Vec2(0, 0)) match {
         case Some((_, lockPos)) => cam.pos = lockPos
         case None => Unit
       }
@@ -73,22 +83,23 @@ class Sketch extends PApplet {
 
   val cam = Camera(this)
 
-  val sys = SystemGenerator.galaxy(Rng(millis()))
-  //val sys = SystemGenerator.solarSystem(Rng(millis()))
-  //val sys = SystemGenerator.planetarySystem(Rng(millis()))
-  //val sys = SystemGenerator.lunarSystem(Rng(millis()))
+  val masterSys = SystemGenerator.galaxy(Rng(millis()))
+  //val masterSys = SystemGenerator.solarSystem(Rng(millis()))
+  //val masterSys = SystemGenerator.planetarySystem(Rng(millis()))
+  //val masterSys = SystemGenerator.lunarSystem(Rng(millis()))
 
   val tessellationThresh = 50
 
   cam.minScale = 0.001f
   cam.maxScale = 50
-  cam.minX = -sys.radius
-  cam.maxX = sys.radius
-  cam.minY = -sys.radius
-  cam.maxY = sys.radius
+  cam.minX = -masterSys.radius
+  cam.maxX = masterSys.radius
+  cam.minY = -masterSys.radius
+  cam.maxY = masterSys.radius
 
+  var mouseClickedLeft = false
   var mouseClickedRight = false
-  var cameraLock: Option[(System, Vec2)] = None
+  var cameraLock: Option[System] = None
 
   def drawCores(sys: System, t: Float, center: Vec2 = Vec2(0, 0)): Unit = {
     val pos = sys.position(t, center)
@@ -125,24 +136,10 @@ class Sketch extends PApplet {
     sys.satellites foreach (drawAreas(_, t, pos))
   }
 
-  /*def systemAt(there: Vec2, sys: System, time: Float, center: Vec2 = Vec2(0, 0)): Option[(System, Vec2)] = {
-    val sysPos = sys.position(time, center)
-    val coreCircle = Circle(sysPos, sys.core.radius)
-
-    if (coreCircle intersects there)
-      Some(sys, sysPos)
-
-    else
-      sys.satellites flatMap (systemAt(there, _, time, sysPos)) match {
-        case head :: _ => Some(head)
-        case Nil => None
-      }
-  }*/
-
-  def systemAt(there: Vec2, sys: System, time: Float, center: Vec2 = Vec2(0, 0)): Option[(System, Vec2)] = {
+  def systemAt(there: Vec2, sys: System, time: Float, center: Vec2 = Vec2(0, 0)): Option[System] = {
     sys.findWithPosition({(s, p) =>
       Circle(p, s.core.radius) intersects there
-    }, time, center)
+    }, time, center) map (_._1)
   }
 
   def visibleSystems(sys: System, t: Float, center: Vec2 = Vec2(0, 0)): System = {
@@ -188,8 +185,11 @@ class Sketch extends PApplet {
   override def mousePressed(event: MouseEvent): Unit = {
     cam.mousePressed(event)
 
-    if (mouseButton == RIGHT)
-      mouseClickedRight = true
+    mouseButton match {
+      case LEFT => mouseClickedLeft = true
+      case RIGHT => mouseClickedRight = true
+      case _ => Unit
+    }
   }
 
   override def mouseReleased(event: MouseEvent): Unit = {
