@@ -34,17 +34,29 @@ class Sketch extends PApplet {
     val vs = visibleSystems(sys, t)
     val vo = visibleOrbits(sys, t)
 
+    if (mouseDownRight) {
+      val mouseScreen = Vec2(mouseX, mouseY)
+      val mouseModel = cam.unproject(mouseScreen)
+      cameraLock = systemAt(mouseModel, vs, t)
+    }
+
+
     background(0)
 
     cam.updatePosition()
     cam.transform()
+
+    cameraLock match {
+      case Some((_, pos)) => cam.pos = pos
+      case None => Unit
+    }
+
     //drawAreas(sys, t)
 
     vo.satellites foreach {solarSys => {
       val solPos = solarSys.position(t, Vec2(0, 0))
       solarSys.satellites foreach (drawOrbits(_, t, solPos))
     }}
-
     //drawOrbits(vo, t)
 
     drawCores(vs, t)
@@ -72,37 +84,8 @@ class Sketch extends PApplet {
   cam.minY = -sys.radius
   cam.maxY = sys.radius
 
-  def visibleSystems(sys: System, t: Float, center: Vec2 = Vec2(0, 0)): System = {
-    val pos = sys.position(t, center)
-    val sysCircle = Circle(pos, sys.radius)
-
-    if (cam likelyShows sysCircle) System(
-      sys.core,
-      sys.orbit,
-      if (sys.radius * cam.scale > tessellationThresh)
-        sys.satellites map (visibleSystems(_, t, pos)) filter (_ != NoSystem)
-      else
-        Nil
-    )
-
-    else NoSystem
-  }
-
-  def visibleOrbits(sys: System, t: Float, center: Vec2 = Vec2(0, 0)): System = {
-    val pos = sys.position(t, center)
-    val orbCircle = Circle(center, sys.orbit.radius + sys.radius)
-
-    if (cam likelyShows orbCircle) System(
-      sys.core,
-      sys.orbit,
-      if (sys.radius * cam.scale > tessellationThresh)
-        sys.satellites map (visibleOrbits(_, t, pos)) filter (_ != NoSystem)
-      else
-        Nil
-    )
-
-    else NoSystem
-  }
+  var mouseDownRight = false
+  var cameraLock: Option[(System, Vec2)] = None
 
   def drawCores(sys: System, t: Float, center: Vec2 = Vec2(0, 0)): Unit = {
     val pos = sys.position(t, center)
@@ -139,6 +122,52 @@ class Sketch extends PApplet {
     sys.satellites foreach (drawAreas(_, t, pos))
   }
 
+  def systemAt(there: Vec2, sys: System, time: Float, center: Vec2 = Vec2(0, 0)): Option[(System, Vec2)] = {
+    val sysPos = sys.position(time, center)
+    val coreCircle = Circle(sysPos, sys.core.radius)
+
+    if (coreCircle intersects there)
+      Some(sys, sysPos)
+
+    else
+      sys.satellites flatMap (systemAt(there, _, time, sysPos)) match {
+        case head :: _ => Some(head)
+        case Nil => None
+      }
+  }
+
+  def visibleSystems(sys: System, t: Float, center: Vec2 = Vec2(0, 0)): System = {
+    val pos = sys.position(t, center)
+    val sysCircle = Circle(pos, sys.radius)
+
+    if (cam likelyShows sysCircle) System(
+      sys.core,
+      sys.orbit,
+      if (sys.radius * cam.scale > tessellationThresh)
+        sys.satellites map (visibleSystems(_, t, pos)) filter (_ != NoSystem)
+      else
+        Nil
+    )
+
+    else NoSystem
+  }
+
+  def visibleOrbits(sys: System, t: Float, center: Vec2 = Vec2(0, 0)): System = {
+    val pos = sys.position(t, center)
+    val orbCircle = Circle(center, sys.orbit.radius + sys.radius)
+
+    if (cam likelyShows orbCircle) System(
+      sys.core,
+      sys.orbit,
+      if (sys.radius * cam.scale > tessellationThresh)
+        sys.satellites map (visibleOrbits(_, t, pos)) filter (_ != NoSystem)
+      else
+        Nil
+    )
+
+    else NoSystem
+  }
+
   override def keyPressed(event: KeyEvent): Unit = {
     cam.keyPressed(event)
     if (key == '1') println("Scale " + cam.scale)
@@ -147,11 +176,19 @@ class Sketch extends PApplet {
   override def keyReleased(event: KeyEvent): Unit =
     cam.keyReleased(event)
 
-  override def mousePressed(event: MouseEvent): Unit =
+  override def mousePressed(event: MouseEvent): Unit = {
     cam.mousePressed(event)
 
-  override def mouseReleased(event: MouseEvent): Unit =
+    if (mouseButton == RIGHT)
+      mouseDownRight = true
+  }
+
+  override def mouseReleased(event: MouseEvent): Unit = {
     cam.mouseReleased(event)
+
+    if (mouseButton == RIGHT)
+      mouseDownRight = false
+  }
 
   override def mouseWheel(event: MouseEvent): Unit =
     cam.mouseWheel(event)

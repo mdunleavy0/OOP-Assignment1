@@ -40,3 +40,4 @@ object Vec2 {
     Vec2(mag * cos(angle).toFloat, mag * sin(angle).toFloat)
 }
 
+
