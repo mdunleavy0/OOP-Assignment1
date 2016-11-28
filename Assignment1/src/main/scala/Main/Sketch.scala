@@ -64,13 +64,13 @@ class Sketch extends PApplet {
       case None => Unit
     }
 
-    //drawAreas(sys, t)
+    //drawAreas(masterSys, t)
 
-    vo.satellites foreach {solarSys => {
+    /*vo.satellites foreach {solarSys => {
       val solPos = solarSys.position(t, Vec2(0, 0))
       solarSys.satellites foreach (drawOrbits(_, t, solPos))
-    }}
-    //drawOrbits(vo, t)
+    }}*/
+    drawOrbits(vo, t)
 
     drawCores(vs, t)
     cam.untransform()
@@ -83,10 +83,11 @@ class Sketch extends PApplet {
 
   val cam = Camera(this)
 
-  val masterSys = SystemGenerator.galaxy(Rng(millis()))
+  //val masterSys = SystemGenerator.galaxy(Rng(millis()))
   //val masterSys = SystemGenerator.solarSystem(Rng(millis()))
   //val masterSys = SystemGenerator.planetarySystem(Rng(millis()))
   //val masterSys = SystemGenerator.lunarSystem(Rng(millis()))
+  val masterSys = System(Star(100, 0), NoOrbit, SystemGenerator.generateAsteroidBelt(200, Rng(millis())))
 
   val tessellationThresh = 50
 
@@ -158,20 +159,23 @@ class Sketch extends PApplet {
     else NoSystem
   }
 
-  def visibleOrbits(sys: System, t: Float, center: Vec2 = Vec2(0, 0)): System = {
-    val pos = sys.position(t, center)
-    val orbCircle = Circle(center, sys.orbit.radius + sys.radius)
+  def visibleOrbits(sys: System, t: Float, center: Vec2 = Vec2(0, 0)): System = sys.core match {
+    case _: Asteroid => NoSystem
+    case _ => {
+      val pos = sys.position(t, center)
+      val orbCircle = Circle(center, sys.orbit.radius + sys.radius)
 
-    if (cam likelyShows orbCircle) System(
-      sys.core,
-      sys.orbit,
-      if (sys.radius * cam.scale > tessellationThresh)
-        sys.satellites map (visibleOrbits(_, t, pos)) filter (_ != NoSystem)
-      else
-        Nil
-    )
+      if (cam likelyShows orbCircle) System(
+        sys.core,
+        sys.orbit,
+        if (sys.radius * cam.scale > tessellationThresh)
+          sys.satellites map (visibleOrbits(_, t, pos)) filter (_ != NoSystem)
+        else
+          Nil
+      )
 
-    else NoSystem
+      else NoSystem
+    }
   }
 
   override def keyPressed(event: KeyEvent): Unit = {
