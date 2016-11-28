@@ -104,7 +104,10 @@ object SystemGenerator {
       else acc
     }
 
-    val satellites = generateArm(corePadding, 0, (Nil, Nil))._1.reverse
+    val baseAngles = 0f until (TauF, TauF / armCount)
+
+    val unsorted = baseAngles.foldLeft((List[System](), List[Circle]()))((b, a) => generateArm(corePadding, a, b))
+    val satellites = unsorted._1 sortBy (_.orbit.radius)
 
     System(NoSatellite, NoOrbit, satellites)
   }
