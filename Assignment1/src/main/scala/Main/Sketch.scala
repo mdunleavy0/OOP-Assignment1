@@ -121,7 +121,7 @@ class Sketch extends PApplet {
     val d = sys.orbit.diameter
 
     noFill()
-    stroke(1, 0, 1, 0.5f)
+    stroke(1, 0, 1, 0.2f)
     strokeWeight(1 / cam.scale)
     ellipse(center.x, center.y, d, d)
 

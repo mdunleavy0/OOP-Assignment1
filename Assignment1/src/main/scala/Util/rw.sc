@@ -1,7 +1,5 @@
-import OldMain._
-import Util._
+import Util.Vec2
 
+val pos = Vec2(0, 0)
 
-val ls = List(Moon, Planet, Star)
-
-val mn = ls(0)(50f)
+pos.norm
