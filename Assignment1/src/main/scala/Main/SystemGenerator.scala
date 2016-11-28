@@ -2,6 +2,7 @@ package Main
 
 import Util.Circle
 import Util.Constants.TauF
+import Util.Functions.mod
 import Util.Rng
 import Util.Vec2
 
@@ -10,54 +11,6 @@ import Util.Vec2
   * Created by Michael Dunleavy on 27/11/2016.
   */
 object SystemGenerator {
-
-  /*def galaxy(rng: Rng = Rng()): System = {
-    val maxSolarSysRadius = 14 * 500
-
-    val radius = 500000
-    val revs = 1
-    val corePadding = 0
-
-    val armCount = 4
-
-    val spiralConstant = radius / (revs * TauF)
-    def theta(r: Float): Float = r / spiralConstant
-
-    def generateArmPositions(mag: Float, baseAngle: Float): List[Vec2] = {
-      val maxAngularDeviance = TauF * (15f / 360)
-      val angularDeviance = rng.nextNormalRange(-maxAngularDeviance, maxAngularDeviance)
-
-      val angle = baseAngle + theta(mag) + angularDeviance
-
-      if (mag + maxSolarSysRadius < radius) (Vec2 fromAngle (angle, mag)) ::
-        generateArmPositions(mag + 0.25f * maxSolarSysRadius, baseAngle)
-
-      else Nil
-    }
-
-    val arms = (for (baseAngle <- 0f until (TauF, TauF / armCount))
-      yield generateArmPositions(corePadding, baseAngle)).flatten.toList
-
-    val sorted = arms.sortBy(_.mag)
-    val maxCircles = sorted map (Circle(_, maxSolarSysRadius))
-
-    def removeOverlaps(circles: List[Circle]): List[Circle] = circles match {
-      case Nil => Nil
-      case c :: cs =>
-        if (cs forall (x => !(x intersects c))) c :: removeOverlaps(cs)
-        else removeOverlaps(cs)
-    }
-
-    val nonOverlapping = sorted//removeOverlaps(maxCircles) map (_.center)
-
-    val satellites = nonOverlapping map (pos => {
-      val partialSat = solarSystem(rng)
-      val orbit = Orbit(pos.mag, Float.PositiveInfinity, pos.angle)
-      System(partialSat.core, orbit, partialSat.satellites)
-    })
-
-    System(NoSatellite, NoOrbit, satellites)
-  }*/
 
   def galaxy(rng: Rng = Rng()): System = {
     val radius = 500000
@@ -155,45 +108,45 @@ object SystemGenerator {
       }
     }
 
+    def generateAsteroidBelt(spaceUsed: Float): List[System] = {
+      val (minCount, maxCount) = (100, 500)
+      val count = rng.nextRange(minCount, maxCount).toInt
 
+      val (minWidth, maxWidth) = (50, 300)
+      val width = rng.nextLogUniformRange(minWidth, maxWidth, 2)
+      val halfWidth = width / 2
+
+      val avgHue = rng.nextFloat
+
+      val avgOrbitRadius = spaceUsed + halfWidth
+      val orbitRadiusStdDev = halfWidth / 3
+
+      val (minAvgPeriod, maxAvgPeriod) = (30, 90)
+      val avgPeriod = rng.nextRange(minAvgPeriod, maxAvgPeriod)
+      val periodStdDev = 0.1f * avgPeriod
+
+      def generateAsteroid(): System = {
+        val partialSat = asteroidSystem(avgHue, rng)
+
+        val orbitRadius = rng.nextNormalRange(avgOrbitRadius - orbitRadiusStdDev, avgOrbitRadius + orbitRadiusStdDev)
+        val period = rng.nextNormalRange(avgPeriod - periodStdDev, avgPeriod + periodStdDev)
+        val satOrbit = Orbit(orbitRadius, period, rng.nextAngle)
+
+        System(partialSat.core, satOrbit, partialSat.satellites)
+      }
+
+      val unfiltered = List.fill(count)(generateAsteroid())
+      val filtered = unfiltered filter (sys => {
+        (sys.orbit.radius > spaceUsed) && (sys.orbit.radius < spaceUsed + width)
+      })
+      val sorted = filtered.sortBy(_.orbit.radius)
+      sorted
+    }
 
     val core = Star(coreRadius, coreHue)
     val satellites = generateSatellites(coreRadius + corePadding)
 
     System(core, NoOrbit, satellites)
-  }
-
-  def generateAsteroidBelt(spaceUsed: Float, rng: Rng = Rng()): List[System] = {
-    val (minCount, maxCount) = (100, 500)
-    val count = rng.nextRange(minCount, maxCount).toInt
-    println("Asteroid count: " + count)
-
-    val (minWidth, maxWidth) = (50, 300)
-    val width = rng.nextLogUniformRange(minWidth, maxWidth, 2)
-    val halfWidth = width / 2
-    println("Belt width: " + width)
-
-    val avgOrbitRadius = spaceUsed + halfWidth
-    val orbitRadiusStdDev = halfWidth / 3
-    println("Belt average orbit radius: " + avgOrbitRadius)
-
-    val (minAvgPeriod, maxAvgPeriod) = (30, 90)
-    val avgPeriod = rng.nextRange(minAvgPeriod, maxAvgPeriod)
-    val periodStdDev = 0.1f * avgPeriod
-    println("Belt average period: " + avgPeriod)
-
-    def generateAsteroid(): System = {
-      val partialSat = asteroidSystem(rng)
-
-      val orbitRadius = rng.nextNormalRange(avgOrbitRadius - orbitRadiusStdDev, avgOrbitRadius + orbitRadiusStdDev)
-      val period = rng.nextNormalRange(avgPeriod - periodStdDev, avgPeriod + periodStdDev)
-      val satOrbit = Orbit(orbitRadius, period, rng.nextAngle)
-
-      System(partialSat.core, satOrbit, partialSat.satellites)
-    }
-
-    val unsorted = List.fill(count)(generateAsteroid())
-    unsorted.sortBy(_.orbit.radius)
   }
 
   def planetarySystem(rng: Rng = Rng()): System = {
@@ -229,11 +182,11 @@ object SystemGenerator {
     System(core, NoOrbit, satellites)
   }
 
-  def asteroidSystem(rng: Rng = Rng()): System = {
+  def asteroidSystem(avgHue: Float, rng: Rng = Rng()): System = {
     val (minCoreRadius, maxCoreRadius) = (0.25f, 5)
     val coreRadius = rng.nextLogUniformRange(minCoreRadius, maxCoreRadius, 2)
 
-    val coreHue = rng.nextFloat
+    val coreHue = mod(rng.nextRange(avgHue - 0.15f, avgHue + 0.15f), 1f)
 
     val core = Asteroid(coreRadius, coreHue)
 

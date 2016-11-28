@@ -34,11 +34,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="600">
-      <file leaf-file-name="Sketch.scala" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Sketch.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/Main/Sketch.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="406">
-              <caret line="162" column="4" selection-start-line="162" selection-start-column="4" selection-end-line="162" selection-end-column="4" />
+            <state relative-caret-position="286">
+              <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
               <folding>
                 <element signature="e#14#32#0" expanded="true" />
               </folding>
@@ -46,11 +46,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Camera.scala" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Camera.scala" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/scala/Util/Camera.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="615">
-              <caret line="27" column="4" selection-start-line="27" selection-start-column="4" selection-end-line="27" selection-end-column="4" />
+            <state relative-caret-position="656">
+              <caret line="31" column="41" selection-start-line="31" selection-start-column="41" selection-end-line="31" selection-end-column="41" />
               <folding>
                 <element signature="e#14#38#0" expanded="true" />
               </folding>
@@ -93,8 +93,8 @@
       <file leaf-file-name="SystemGenerator.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/Main/SystemGenerator.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="166" column="38" selection-start-line="166" selection-start-column="38" selection-end-line="166" selection-end-column="38" />
+            <state relative-caret-position="789">
+              <caret line="80" column="29" selection-start-line="80" selection-start-column="29" selection-end-line="80" selection-end-column="29" />
               <folding>
                 <element signature="e#14#32#0" expanded="true" />
               </folding>
@@ -155,15 +155,15 @@
         <option value="$PROJECT_DIR$/src/main/scala/Util/Constants.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/Main/Orbit.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/Roughwork/GalaxyDistribution.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/Util/Camera.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/Util/Vec2.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/Main/System.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/Util/Functions.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/Main/Satellite.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/Util/rw.sc" />
         <option value="$PROJECT_DIR$/src/main/scala/Util/Rng.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/Main/SystemGenerator.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/Main/Sketch.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/Main/SystemGenerator.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/Util/Camera.scala" />
       </list>
     </option>
   </component>
@@ -1089,12 +1089,12 @@
       <workItem from="1479826185208" duration="14000" />
       <workItem from="1480250648241" duration="36349000" />
       <workItem from="1480327729026" duration="6634000" />
-      <workItem from="1480340206547" duration="23698000" />
+      <workItem from="1480340206547" duration="25611000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="163396000" />
+    <option name="totallyTimeSpent" value="165309000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-14" y="-14" width="3028" height="1938" extended-state="6" />
@@ -1447,29 +1447,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/Util/rw.sc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="38" selection-start-line="0" selection-start-column="38" selection-end-line="0" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/Main/System.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="299">
           <caret line="14" column="18" selection-start-line="14" selection-start-column="18" selection-end-line="14" selection-end-column="18" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/Util/Camera.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="615">
-          <caret line="27" column="4" selection-start-line="27" selection-start-column="4" selection-end-line="27" selection-end-column="4" />
-          <folding>
-            <element signature="e#14#38#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1491,6 +1473,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/Util/rw.sc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="38" selection-start-line="0" selection-start-column="38" selection-end-line="0" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/Util/Rng.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="217">
@@ -1499,22 +1489,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/Main/SystemGenerator.scala">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/Main/Sketch.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="166" column="38" selection-start-line="166" selection-start-column="38" selection-end-line="166" selection-end-column="38" />
+        <state relative-caret-position="286">
+          <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
           <folding>
             <element signature="e#14#32#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/Main/Sketch.scala">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/Main/SystemGenerator.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="406">
-          <caret line="162" column="4" selection-start-line="162" selection-start-column="4" selection-end-line="162" selection-end-column="4" />
+        <state relative-caret-position="789">
+          <caret line="80" column="29" selection-start-line="80" selection-start-column="29" selection-end-line="80" selection-end-column="29" />
           <folding>
             <element signature="e#14#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/Util/Camera.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="656">
+          <caret line="31" column="41" selection-start-line="31" selection-start-column="41" selection-end-line="31" selection-end-column="41" />
+          <folding>
+            <element signature="e#14#38#0" expanded="true" />
           </folding>
         </state>
       </provider>

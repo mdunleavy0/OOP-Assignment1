@@ -53,6 +53,11 @@ class Sketch extends PApplet {
 
     background(0.75f, 1, 0.08f)
 
+    fill(0, 0, 1)
+    noStroke()
+    textSize(40)
+    text(frameRate.toString, 100, 100)
+
     cam.updatePosition()
     cam.transform()
 
@@ -66,11 +71,11 @@ class Sketch extends PApplet {
 
     //drawAreas(masterSys, t)
 
-    /*vo.satellites foreach {solarSys => {
+    vo.satellites foreach {solarSys => {
       val solPos = solarSys.position(t, Vec2(0, 0))
       solarSys.satellites foreach (drawOrbits(_, t, solPos))
-    }}*/
-    drawOrbits(vo, t)
+    }}
+    //drawOrbits(vo, t)
 
     drawCores(vs, t)
     cam.untransform()
@@ -83,11 +88,10 @@ class Sketch extends PApplet {
 
   val cam = Camera(this)
 
-  //val masterSys = SystemGenerator.galaxy(Rng(millis()))
+  val masterSys = SystemGenerator.galaxy(Rng(millis()))
   //val masterSys = SystemGenerator.solarSystem(Rng(millis()))
   //val masterSys = SystemGenerator.planetarySystem(Rng(millis()))
   //val masterSys = SystemGenerator.lunarSystem(Rng(millis()))
-  val masterSys = System(Star(100, 0), NoOrbit, SystemGenerator.generateAsteroidBelt(200, Rng(millis())))
 
   val tessellationThresh = 50
 

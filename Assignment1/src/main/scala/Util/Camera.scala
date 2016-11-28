@@ -17,7 +17,7 @@ class Camera(var sketch: PApplet) {
 
   var targetFps = 60
 
-  var panTime = 0.5f
+  var panTime = 1f
   var zoomSensitivity = 0.5f
 
   var (minScale, maxScale): (Float, Float) = (Float.NegativeInfinity, Float.PositiveInfinity)
@@ -72,10 +72,10 @@ class Camera(var sketch: PApplet) {
     var x = pos.x
     var y = pos.y
 
-    if (digitalInputs("w")) y += panLength
-    if (digitalInputs("a")) x += panLength
-    if (digitalInputs("s")) y -= panLength
-    if (digitalInputs("d")) x -= panLength
+    if (digitalInputs("w")) y -= panLength
+    if (digitalInputs("a")) x -= panLength
+    if (digitalInputs("s")) y += panLength
+    if (digitalInputs("d")) x += panLength
 
     if (digitalInputs("MOUSE_LEFT")) {
       x -= (sketch.mouseX - sketch.pmouseX) / scale
