@@ -41,7 +41,7 @@ class Sketch extends PApplet {
       mouseClickedRight = false
     }
 
-    background(0)
+    background(0.75f, 1, 0.08f)
 
     cam.updatePosition()
     cam.transform()
