@@ -47,7 +47,10 @@ class Sketch extends PApplet {
     cam.transform()
 
     cameraLock match {
-      case Some((_, pos)) => cam.pos = pos
+      case Some((lockSys, _)) => vs.findWithPosition((s, _) => s == lockSys, t, Vec2(0, 0)) match {
+        case Some((_, lockPos)) => cam.pos = lockPos
+        case None => Unit
+      }
       case None => Unit
     }
 
@@ -122,7 +125,7 @@ class Sketch extends PApplet {
     sys.satellites foreach (drawAreas(_, t, pos))
   }
 
-  def systemAt(there: Vec2, sys: System, time: Float, center: Vec2 = Vec2(0, 0)): Option[(System, Vec2)] = {
+  /*def systemAt(there: Vec2, sys: System, time: Float, center: Vec2 = Vec2(0, 0)): Option[(System, Vec2)] = {
     val sysPos = sys.position(time, center)
     val coreCircle = Circle(sysPos, sys.core.radius)
 
@@ -134,6 +137,12 @@ class Sketch extends PApplet {
         case head :: _ => Some(head)
         case Nil => None
       }
+  }*/
+
+  def systemAt(there: Vec2, sys: System, time: Float, center: Vec2 = Vec2(0, 0)): Option[(System, Vec2)] = {
+    sys.findWithPosition({(s, p) =>
+      Circle(p, s.core.radius) intersects there
+    }, time, center)
   }
 
   def visibleSystems(sys: System, t: Float, center: Vec2 = Vec2(0, 0)): System = {

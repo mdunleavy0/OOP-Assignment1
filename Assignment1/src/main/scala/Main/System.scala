@@ -24,6 +24,30 @@ case class System(
     f(this)
     satellites foreach f
   }
+
+  def find(p: System => Boolean): Option[System] = {
+    if (p(this))
+      Some(this)
+
+    else
+      satellites flatMap (_ find p) match {
+        case head :: _ => Some(head)
+        case Nil => None
+      }
+  }
+
+  def findWithPosition(p: (System, Vec2) => Boolean, time: Float, center: Vec2 = Vec2(0, 0)): Option[(System, Vec2)] = {
+    val sysPos = position(time, center)
+
+    if (p(this, sysPos))
+      Some(this, sysPos)
+
+    else
+      satellites flatMap (_.findWithPosition(p, time, sysPos)) match {
+        case head :: _ => Some(head)
+        case Nil => None
+      }
+  }
 }
 
 object NoSystem extends System()
