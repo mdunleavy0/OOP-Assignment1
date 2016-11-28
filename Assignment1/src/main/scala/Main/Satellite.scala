@@ -19,17 +19,17 @@ case object NoSatellite extends Satellite {
 
 
 case class Star(radius: Float, hue: Float) extends Satellite {
-  val color = Color(hue, 0.5f, 0.5f)
+  val color = Color(hue, 0.25f, 1)
 }
 
 
 case class Planet(radius: Float, hue: Float) extends Satellite {
-  val color = Color(hue, 0.5f, 0.5f)
+  val color = Color(hue, 0.5f, 0.75f)
 }
 
 
 case class Moon(radius: Float, hue: Float) extends Satellite {
-  val color = Color(hue, 0.5f, 0.5f)
+  val color = Color(hue, 0.5f, 0.75f)
 }
 
 
