@@ -23,6 +23,7 @@ My submission is a procedurally generated galactic map, inspired by those found 
 
 ### Technical Features
 * Functional object oriented programming
+* Parallel programming
 * Domain specific data collections
 * Recursive design
 * Visibility culling
