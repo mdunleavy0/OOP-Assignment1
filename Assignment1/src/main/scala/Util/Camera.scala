@@ -17,7 +17,7 @@ class Camera(var sketch: PApplet) {
 
   var targetFps = 60
 
-  var panTime = 1f
+  var panTime = 0.75f
   var zoomSensitivity = 0.5f
 
   var (minScale, maxScale): (Float, Float) = (Float.NegativeInfinity, Float.PositiveInfinity)

@@ -155,8 +155,7 @@ class Sketch extends PApplet {
     val d = sys.orbit.diameter
 
     noFill()
-    //stroke(0, 0, 1, 0.2f)
-    stroke(0, 0, 0.2f)
+    stroke(0, 0, 1, 0.2f)
     strokeWeight(1 / cam.scale)
     ellipse(center.x, center.y, d, d)
 
@@ -220,10 +219,8 @@ class Sketch extends PApplet {
     }
   }
 
-  override def keyPressed(event: KeyEvent): Unit = {
+  override def keyPressed(event: KeyEvent): Unit =
     cam.keyPressed(event)
-    if (key == '1') println("Scale " + cam.scale)
-  }
 
   override def keyReleased(event: KeyEvent): Unit =
     cam.keyReleased(event)

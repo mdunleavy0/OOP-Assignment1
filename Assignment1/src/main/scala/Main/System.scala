@@ -20,11 +20,6 @@ case class System(
 
   def position(time: Float, center: Vec2): Vec2 = center + orbit.displacement(time)
 
-  def foreach(f: System => Unit): Unit = {
-    f(this)
-    satellites foreach f
-  }
-
   def find(p: System => Boolean): Option[System] = {
     if (p(this))
       Some(this)

@@ -21,7 +21,7 @@ class Vec2(val x: Float, val y: Float) {
 
   def dist(that: Vec2): Float = hypot(that.x - x, that.y - y).toFloat
   def angleBetween(that: Vec2): Float =
-    if (isZero || that.isZero) throw new Error("")
+    if (isZero || that.isZero) throw new Error("Angle between zero vector is undefined.")
     else acos(this * that / (mag * that.mag)).toFloat
 
   def rotate(angle: Float): Vec2 = Vec2 fromAngle (this.angle + angle, mag)
