@@ -68,6 +68,20 @@ class Camera(var sketch: PApplet) {
 
   def likelyShows(area: Circle): Boolean = circumcircle intersects area
 
+  def gravitateTo(target: Vec2): Unit = {
+    val d = pos dist target
+
+    if (d != 0) {
+      val speed = min(panLength, d)
+      val normSpd = speed / d
+
+      pos = Vec2(
+        lerp(pos.x, target.x, normSpd),
+        lerp(pos.y, target.y, normSpd)
+      )
+    }
+  }
+
   def updatePosition(): Unit = {
     var x = pos.x
     var y = pos.y

@@ -75,7 +75,7 @@ class Sketch extends PApplet {
 
     cameraLock match {
       case Some((lockSys)) => vs.findWithPosition((s, _) => s.core == lockSys.core, t, Vec2(0, 0)) match {
-        case Some((_, lockPos)) => cam.pos = lockPos
+        case Some((_, lockPos)) => cam.gravitateTo(lockPos)
         case None => Unit
       }
       case None => Unit
