@@ -163,11 +163,11 @@ object SystemGenerator {
     val ring: Option[PlanetRing] =
       if (rng.nextFloat < 0.5f) {
         val ringPadding = rng.nextRange(0.1f * coreRadius, 0.3f * coreRadius)
-        val ringWidth = rng.nextRange(0.2f * coreRadius, 0.8f * coreRadius)
+        val ringWidth = rng.nextRange(0.2f * coreRadius, 0.7f * coreRadius)
         val ringRadius = coreRadius + ringPadding + ringWidth / 2
 
         val ringHue = mod(rng.nextRange(coreHue - 0.15f, coreHue + 0.15f), 1f)
-        val ringColor = Color(ringHue, partialCore.color.s - 0.1f, partialCore.color.b, 0.75f)
+        val ringColor = Color(ringHue, partialCore.color.s - 0.1f, partialCore.color.b, 0.5f)
 
         Some(PlanetRing(ringRadius, ringWidth, ringColor))
       }
@@ -175,7 +175,7 @@ object SystemGenerator {
         None
 
     val coreRadiusWithRing = ring match {
-      case Some(r) => coreRadius + r.radius + r.width / 2
+      case Some(r) => r.radius + r.width / 2
       case None => coreRadius
     }
 

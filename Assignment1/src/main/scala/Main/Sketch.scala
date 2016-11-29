@@ -133,10 +133,11 @@ class Sketch extends PApplet {
     sys.core match {
       case planet: Planet => planet.ring match {
         case Some(ring) => {
+          val c = ring.color
           val d = 2 * ring.radius
 
           noFill()
-          stroke(planet.color.h, planet.color.s, planet.color.b, 0.75f)
+          stroke(c.h, c.s, c.b, c.a)
           strokeWeight(ring.width)
 
           ellipse(pos.x, pos.y, d, d)
