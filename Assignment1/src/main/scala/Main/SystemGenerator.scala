@@ -1,5 +1,6 @@
 package Main
 
+// 1st party
 import Util.Circle
 import Util.Color
 import Util.Constants.TauF
@@ -13,6 +14,7 @@ import Util.Vec2
   */
 object SystemGenerator {
 
+  // galaxy generation procedure
   def galaxy(rng: Rng = Rng()): System = {
     val radius = 500000
     val revs = 1
@@ -68,6 +70,7 @@ object SystemGenerator {
     System(NoSatellite, NoOrbit, satellites)
   }
 
+  // solar system generation procedure
   def solarSystem(rng: Rng = Rng()): System = {
     val (minCoreRadius, maxCoreRadius) = (75, 500)
     val coreRadius = rng.nextLogUniformRange(minCoreRadius, maxCoreRadius, 2)
@@ -152,6 +155,7 @@ object SystemGenerator {
     System(core, NoOrbit, satellites)
   }
 
+  // planetary system generation procedure
   def planetarySystem(rng: Rng = Rng()): System = {
     val (minCoreRadius, maxCoreRadius) = (5, 50)
     val coreRadius = rng.nextLogUniformRange(minCoreRadius, maxCoreRadius, 2)
@@ -206,6 +210,7 @@ object SystemGenerator {
     System(core, NoOrbit, satellites)
   }
 
+  // asteroid system generation procedure
   def asteroidSystem(avgHue: Float, rng: Rng = Rng()): System = {
     val (minCoreRadius, maxCoreRadius) = (0.25f, 5)
     val coreRadius = rng.nextLogUniformRange(minCoreRadius, maxCoreRadius, 2)
@@ -217,6 +222,7 @@ object SystemGenerator {
     System(core)
   }
 
+  // lunar system generation procedure
   def lunarSystem(rng: Rng = Rng()): System = {
     val (minCoreRadius, maxCoreRadius) = (0.5f, 5)
     val coreRadius = rng.nextLogUniformRange(minCoreRadius, maxCoreRadius, 2)

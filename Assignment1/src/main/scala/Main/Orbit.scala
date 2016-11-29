@@ -1,5 +1,6 @@
 package Main
 
+// 1st party
 import Util.Constants.TauF
 import Util.Vec2
 
@@ -14,10 +15,13 @@ case class Orbit(
 ) {
   val diameter: Float = 2 * radius
 
+  // orbital angle at a given time
   def angle(time: Float): Float = time * TauF / period + phaseAngle
 
+  // displacement at a given time from an unspecified orbital center
   def displacement(time: Float): Vec2 = Vec2 fromAngle (angle(time), radius)
 }
 
 
+//empty object
 object NoOrbit extends Orbit()

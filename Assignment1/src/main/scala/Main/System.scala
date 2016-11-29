@@ -1,5 +1,6 @@
 package Main
 
+// 1st party
 import Util.Vec2
 
 
@@ -11,6 +12,7 @@ case class System(
   orbit: Orbit = NoOrbit,
   satellites: List[System] = Nil
 ) {
+  // radius of system circumcircle
   lazy val radius: Float = satellites match {
     case _ :+ last => last.orbit.radius + last.radius
     case _ => core.radius
@@ -18,8 +20,10 @@ case class System(
 
   lazy val diameter: Float = 2 * radius
 
+  // formula for system position a at given time relative to an orbital center
   def position(time: Float, center: Vec2): Vec2 = center + orbit.displacement(time)
 
+  // replication of scala default collections' .find()
   def find(p: System => Boolean): Option[System] = {
     if (p(this))
       Some(this)
@@ -31,6 +35,7 @@ case class System(
       }
   }
 
+  // more useful but messy, replication of scala default collections' .find()
   def findWithPosition(p: (System, Vec2) => Boolean, time: Float, center: Vec2 = Vec2(0, 0)): Option[(System, Vec2)] = {
     val sysPos = position(time, center)
 
@@ -45,4 +50,6 @@ case class System(
   }
 }
 
+
+// empty object
 object NoSystem extends System()
