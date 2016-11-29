@@ -94,6 +94,7 @@ class Sketch extends PApplet {
   //val masterSys = SystemGenerator.lunarSystem(Rng(millis()))
 
   val tessellationThresh = 50
+  val asteroidTessellationThresh = 150
 
   cam.minScale = 0.001f
   cam.maxScale = 50
@@ -123,7 +124,8 @@ class Sketch extends PApplet {
     val d = sys.orbit.diameter
 
     noFill()
-    stroke(1, 0, 1, 0.2f)
+    //stroke(0, 0, 1, 0.2f)
+    stroke(0, 0, 0.2f)
     strokeWeight(1 / cam.scale)
     ellipse(center.x, center.y, d, d)
 
@@ -151,11 +153,16 @@ class Sketch extends PApplet {
     val pos = sys.position(t, center)
     val sysCircle = Circle(pos, sys.radius)
 
+    def nonAsteroids(sats: List[System]): List[System] =
+      sats filter (!_.core.isInstanceOf[Asteroid])
+
     if (cam likelyShows sysCircle) System(
       sys.core,
       sys.orbit,
-      if (sys.radius * cam.scale > tessellationThresh)
+      if (sys.radius * cam.scale > asteroidTessellationThresh)
         sys.satellites map (visibleSystems(_, t, pos)) filter (_ != NoSystem)
+      else if (sys.radius * cam.scale > tessellationThresh)
+        nonAsteroids(sys.satellites) map (visibleOrbits(_, t, pos)) filter (_ != NoSystem)
       else
         Nil
     )

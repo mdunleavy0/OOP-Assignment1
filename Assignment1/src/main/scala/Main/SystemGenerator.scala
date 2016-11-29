@@ -22,6 +22,8 @@ object SystemGenerator {
     val spiralConstant = radius / (revs * TauF)
     def theta(r: Float): Float = r / spiralConstant
 
+    val satPadding = 1000
+
     def generateArm(mag: Float, baseAngle: Float, acc: (List[System], List[Circle])): (List[System], List[Circle]) = {
       val magIncrement = 500
 
@@ -34,7 +36,7 @@ object SystemGenerator {
         val angle = baseAngle + theta(mag) + angularDeviance
 
         val orbit = Orbit(mag, Float.PositiveInfinity, angle)
-        val orbitCircle = Circle(Vec2 fromAngle (angle, mag), partialSat.radius)
+        val orbitCircle = Circle(Vec2 fromAngle (angle, mag), partialSat.radius + satPadding)
 
         if (acc._2 forall (c => !(c intersects orbitCircle)))
           orbit
