@@ -65,10 +65,10 @@ class Sketch extends PApplet {
 
     background(0.75f, 1, 0.08f)
 
-    fill(0, 0, 1)
+    /*fill(0, 0, 1)
     noStroke()
     textSize(36)
-    text(frameRate.toString, 100, 100)
+    text(frameRate.toString, 100, 100)*/
 
     cam.updatePosition()
     cam.transform()
