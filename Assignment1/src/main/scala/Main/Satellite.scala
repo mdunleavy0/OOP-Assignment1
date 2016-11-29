@@ -23,9 +23,11 @@ case class Star(radius: Float, hue: Float) extends Satellite {
 }
 
 
-case class Planet(radius: Float, hue: Float) extends Satellite {
+case class Planet(radius: Float, hue: Float, ring: Option[PlanetRing] = None) extends Satellite {
   val color = Color(hue, 0.5f, 0.75f)
 }
+
+case class PlanetRing(radius: Float, width: Float, color: Color)
 
 
 case class Asteroid(radius: Float, hue: Float) extends Satellite {

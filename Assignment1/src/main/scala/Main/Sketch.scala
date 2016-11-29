@@ -31,8 +31,20 @@ class Sketch extends PApplet {
   override def draw() = {
     val t: Float = frameCount.toFloat / targetFps
 
-    val vs = visibleSystems(masterSys, t)
-    val vo = visibleOrbits(masterSys, t)
+    //val vs = visibleSystems(masterSys, t)
+    //val vo = visibleOrbits(masterSys, t)
+
+    val vs = System(
+      masterSys.core,
+      masterSys.orbit,
+      (parallelSatellites map (visibleSystems(_, t)) filter (_ != NoSystem)).toList
+    )
+
+    val vo = System(
+      masterSys.core,
+      masterSys.orbit,
+      (parallelSatellites map (visibleOrbits(_, t)) filter (_ != NoSystem)).toList
+    )
 
     if (mouseClickedLeft) {
       mouseClickedLeft = false
@@ -55,7 +67,7 @@ class Sketch extends PApplet {
 
     fill(0, 0, 1)
     noStroke()
-    textSize(40)
+    textSize(36)
     text(frameRate.toString, 100, 100)
 
     cam.updatePosition()
@@ -93,6 +105,8 @@ class Sketch extends PApplet {
   //val masterSys = SystemGenerator.planetarySystem(Rng(millis()))
   //val masterSys = SystemGenerator.lunarSystem(Rng(millis()))
 
+  val parallelSatellites = masterSys.satellites.par
+
   val tessellationThresh = 50
   val asteroidTessellationThresh = 150
 
@@ -115,6 +129,22 @@ class Sketch extends PApplet {
     fill(color.h, color.s, color.b, color.a)
     noStroke()
     ellipse(pos.x, pos.y, d, d)
+
+    sys.core match {
+      case planet: Planet => planet.ring match {
+        case Some(ring) => {
+          val d = 2 * ring.radius
+
+          noFill()
+          stroke(planet.color.h, planet.color.s, planet.color.b, 0.75f)
+          strokeWeight(ring.width)
+
+          ellipse(pos.x, pos.y, d, d)
+        }
+        case _ => Unit
+      }
+      case _ => Unit
+    }
 
     sys.satellites foreach (drawCores(_, t, pos))
   }

@@ -1,2 +1,3 @@
-val ls = List(None, Some(1), Some(2))
-ls collect {case Some(i) => i}
+import scala.collection.parallel.immutable.ParVector
+
+val ls = ParVector(1, 2, 3)

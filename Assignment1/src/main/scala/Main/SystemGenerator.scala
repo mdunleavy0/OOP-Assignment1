@@ -1,6 +1,7 @@
 package Main
 
 import Util.Circle
+import Util.Color
 import Util.Constants.TauF
 import Util.Functions.mod
 import Util.Rng
@@ -155,10 +156,31 @@ object SystemGenerator {
     val (minCoreRadius, maxCoreRadius) = (5, 50)
     val coreRadius = rng.nextLogUniformRange(minCoreRadius, maxCoreRadius, 2)
 
+    val coreHue = rng.nextFloat
+
+    val partialCore = Planet(coreRadius, coreHue)
+
+    val ring: Option[PlanetRing] =
+      if (rng.nextFloat < 0.5f) {
+        val ringPadding = rng.nextRange(0.1f * coreRadius, 0.3f * coreRadius)
+        val ringWidth = rng.nextRange(0.2f * coreRadius, 0.8f * coreRadius)
+        val ringRadius = coreRadius + ringPadding + ringWidth / 2
+
+        val ringHue = mod(rng.nextRange(coreHue - 0.15f, coreHue + 0.15f), 1f)
+        val ringColor = Color(ringHue, partialCore.color.s - 0.1f, partialCore.color.b, 0.75f)
+
+        Some(PlanetRing(ringRadius, ringWidth, ringColor))
+      }
+      else
+        None
+
+    val coreRadiusWithRing = ring match {
+      case Some(r) => coreRadius + r.radius + r.width / 2
+      case None => coreRadius
+    }
+
     val radius = rng.nextRange(2 * coreRadius, 4 * coreRadius)
     val corePadding = rng.nextRange(0.4f * coreRadius, 0.8f * coreRadius)
-
-    val coreHue = rng.nextFloat
 
     def generateSatellites(spaceUsed: Float): List[System] = {
       val partialSat = lunarSystem(rng)
@@ -178,8 +200,8 @@ object SystemGenerator {
       else Nil
     }
 
-    val core = Planet(coreRadius, coreHue)
-    val satellites = generateSatellites(coreRadius + corePadding)
+    val core = Planet(coreRadius, coreHue, ring)
+    val satellites = generateSatellites(coreRadiusWithRing + corePadding)
 
     System(core, NoOrbit, satellites)
   }
