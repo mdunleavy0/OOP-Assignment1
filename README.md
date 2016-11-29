@@ -38,7 +38,7 @@ My submission is a procedurally generated galactic map, inspired by those found 
 ### Source Code Structure
 
 * Main: Package containing the executable sketch and classes used to model the galaxy. All modeling classes are stateless 'pure functional' code.
-    * Sketch: The executable Processing PApplet. Used to a bridge between the modeling and camera layers of the project
+    * Sketch: The executable Processing PApplet. Used to a bridge between Processing the modeling layer and the camera layer.
     * Satellite: Representation of natural satellites such as moons and stars.
     * Orbit: Orbital information such as period and orbit radius.
     * System: Recursive data structure built around a satellite, its orbit and the satellite systems that orbit it.
