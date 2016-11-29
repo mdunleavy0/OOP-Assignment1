@@ -2,6 +2,9 @@
 Object oriented programming - Assignment 1
 
 
+![Procedural Planetary System](screenshot.PNG)
+
+
 This repo is intended to be part of code portfolio, showcasing miscellaneous skills and achievements to potential employers. **This code is not intended for reuse.**
 
 This repo contains code for the first assignment of Object Oriented Programming, a second year module at the Dublin Institute of Technology. The code is written in Scala and uses the [Processing graphics library](https://processing.org/). The assignment is due to be submitted on 29 November 2016.
